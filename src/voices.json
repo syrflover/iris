@@ -1,0 +1,14 @@
+[
+    {
+        "name": "yuna",
+        "type": "siri"
+    },
+    {
+        "name": "chorong",
+        "type": "voiceware",
+        "params": {
+            "speaker": 13,
+            "dbsize": 1
+        }
+    }
+]
