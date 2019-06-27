@@ -42,7 +42,7 @@ export const sayEnable: CommandFunc = (
                     [userid]: {
                         voiceChannelID: message.member.voiceChannel.id,
                         expire: Date.now() + 3600 * 1000,
-                        mode: voice!.name,
+                        mode: `--${voice!.name}`,
                     },
                 })
                 .then((r) => {
