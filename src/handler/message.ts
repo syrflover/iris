@@ -3,7 +3,6 @@ import * as F from 'nodekell';
 import { Message } from 'discord.js';
 
 import { StateType, StateError } from '../state';
-import { toLowerTrim } from '../lib/utils/toLowerTrim';
 import { CommandMap } from '../commands';
 
 import * as emoji from '../lib/emoji';
@@ -34,7 +33,7 @@ export const checkPrefix = F.curry(
     ): Promise<StateType<string, Message>> =>
         new Promise(async (resolve, reject) => {
             const [, message] = state;
-            const content = await toLowerTrim(message.content);
+            const content = message.content.trim();
 
             const prefixInMessage = await F.find(
                 (pf) => content.startsWith(pf),
@@ -51,14 +50,14 @@ export const checkPrefix = F.curry(
 
 export const checkCommand = F.curry(
     (
-        CommandMap: CommandMap,
+        commandMap: CommandMap,
         state: StateType<string, Message>,
     ): Promise<StateType<(message: Message) => Promise<any>, Message>> =>
         new Promise((resolve, reject) => {
             const [content, message, _] = state;
             const [inputCommand, ...parameter] = content.split(' ');
 
-            const command = CommandMap.get(inputCommand);
+            const command = commandMap.get(inputCommand);
 
             if (command) {
                 resolve([command.run(parameter.join(' ')), message, _]);
