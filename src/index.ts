@@ -13,6 +13,7 @@ import {
     success,
     catcher,
 } from './handler/message';
+import { alwaysSay } from './lib/alwaysSay';
 import { mkdir } from './lib/mkdir';
 import { paths } from './lib/resolvePath';
 
@@ -43,6 +44,8 @@ client.on('error', (error) => {
 client.on('ready', () => console.info('ready'));
 
 client.on('message', (message) => {
+    alwaysSay(prefixes, message).catch(catcher);
+
     F.run(
         message,
         // F.tap((m) => console.log(m.content)),
