@@ -12,12 +12,15 @@ import { sayDisable, sayDisableH } from './sayDisable';
 import { help, helpH } from './help';
 import { random, randomH } from './random';
 
-export type CommandFunc = (parameter: string, message: Message) => Promise<any>;
+export type CommandFunc = (
+    parameter: string,
+    message: Message,
+) => Promise<void>;
 
 export type CurriedCommandFunc = F.CurriedFunction2<
     string,
     Message,
-    Promise<any>
+    Promise<void>
 >;
 
 export type CommandInfo = { run: CurriedCommandFunc; description: string };
