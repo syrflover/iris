@@ -4,7 +4,6 @@ import { Message } from 'discord.js';
 
 import { sayStore } from '../store/sayStore';
 import { say } from '../commands/say';
-import { StateError } from '../state';
 
 export const alwaysSay = (
     prefixes: string[],
@@ -40,7 +39,7 @@ export const alwaysSay = (
                 await say(`${saySession.mode} ${message.content}`, message);
                 resolve();
             } catch (error) {
-                reject(new StateError(error.message, message));
+                reject(error);
             }
         }
     });
