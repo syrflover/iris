@@ -4,7 +4,7 @@ import * as Discord from 'discord.js';
 
 import { env } from './env';
 import { toState } from './state';
-import { commands } from './commands';
+import { commandMap } from './commands';
 import {
     ignoreBot,
     checkPrefix,
@@ -49,7 +49,7 @@ client.on('message', (message) => {
         toState(true),
         ignoreBot,
         checkPrefix(prefixes),
-        checkCommand(commands),
+        checkCommand(commandMap),
         runCommand,
         success,
     ).catch(catcher);
