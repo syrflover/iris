@@ -49,7 +49,12 @@ export const say: CommandFunc = (
             return;
         }
 
-        if (await F.some((reg) => reg.test(parameter), ignoreRegExp)) {
+        const hasSomeIgnorePattern = await F.some(
+            (reg) => reg.test(parameter),
+            ignoreRegExp,
+        );
+
+        if (hasSomeIgnorePattern) {
             reject(new StateError('Ignore regexp test', message));
             return;
         }
