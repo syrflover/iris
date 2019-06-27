@@ -8,7 +8,7 @@ import { CommandFunc } from './index';
 import { StateError } from '../state';
 import { siri } from '../lib/siri';
 import { voiceware } from '../lib/voiceware';
-import { replacer } from '../lib/utils/replacer';
+import { replacer } from '../lib/replacer';
 
 export const sayH = `\`\`\`haskell
 {- tts in voice channel -}
