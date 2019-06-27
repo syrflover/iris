@@ -4,25 +4,19 @@ import { paths } from './lib/resolvePath';
 import { mkdir } from './lib/mkdir';
 import { sayStore } from './store/sayStore';
 
-// say cache directory
-try {
-    mkdir(paths.cache);
-} catch (error) {
-    console.error(error);
+const bootstrap = async () => {
+    try {
+        // say cache directory
+        await mkdir(paths.cache);
 
-    process.exit(1);
-}
+        // say session file
+        await sayStore.initialize();
 
-// say session file
-sayStore.initialize().catch((e) => {
-    console.error(e);
+        // connect discord gateway
+        await client.login(env.DISCORD_TOKEN);
+    } catch (error) {
+        console.error(error);
 
-    process.exit(1);
-});
-
-// connect discord gateway
-client.login(env.DISCORD_TOKEN).catch((error) => {
-    console.error(error);
-
-    process.exit(1);
-});
+        process.exit(1);
+    }
+};
