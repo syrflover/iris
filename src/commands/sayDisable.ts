@@ -3,7 +3,10 @@ import { Message } from 'discord.js';
 import { sayStore } from '../store/sayStore';
 import { StateError } from '../state';
 
-export const sayDisable = (parameter: string, message: Message) =>
+export const sayDisable = (
+    parameter: string,
+    message: Message,
+): Promise<void> =>
     new Promise(async (resolve, reject) => {
         try {
             const sayData = await sayStore.read();
@@ -12,7 +15,7 @@ export const sayDisable = (parameter: string, message: Message) =>
 
             await sayStore.write({ ...sayData });
 
-            resolve(message);
+            resolve();
         } catch (error) {
             reject(new StateError(error.message, message));
         }

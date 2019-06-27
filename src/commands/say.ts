@@ -30,7 +30,10 @@ export const findVoice = (
     content: string,
 ) => F.find(({ name }) => new RegExp(`--${name}`).test(content), voices);
 
-export const say: CommandFunc = (parameter: string, message: Message) =>
+export const say: CommandFunc = (
+    parameter: string,
+    message: Message,
+): Promise<void> =>
     new Promise(async (resolve, reject) => {
         if (!message.member.voiceChannel) {
             reject(new StateError('Need you join voice channel', message));
@@ -93,7 +96,7 @@ export const say: CommandFunc = (parameter: string, message: Message) =>
         }
 
         dispatcher!.on('end', () => {
-            resolve(message);
+            resolve();
         });
 
         dispatcher!.on('error', (error) => {

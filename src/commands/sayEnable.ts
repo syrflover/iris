@@ -8,7 +8,10 @@ import { CommandFunc } from './index';
 import { StateError } from '../state';
 import { findVoice } from './say';
 
-export const sayEnable: CommandFunc = (parameter: string, message: Message) =>
+export const sayEnable: CommandFunc = (
+    parameter: string,
+    message: Message,
+): Promise<void> =>
     new Promise(async (resolve, reject) => {
         const voiceChannel = message.member.voiceChannel;
 
@@ -34,7 +37,7 @@ export const sayEnable: CommandFunc = (parameter: string, message: Message) =>
                 })
                 .then((r) => {
                     if (r) {
-                        resolve(message);
+                        resolve();
                         return;
                     }
                     throw new Error();

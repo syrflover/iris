@@ -29,7 +29,10 @@ const toActivityType = (s: string) => {
     }
 };
 
-export const state: CommandFunc = (parameter: string, message: Message) =>
+export const state: CommandFunc = (
+    parameter: string,
+    message: Message,
+): Promise<void> =>
     new Promise(async (resolve, reject) => {
         let [type, ...game] = parameter.split(' ');
 
@@ -51,7 +54,7 @@ export const state: CommandFunc = (parameter: string, message: Message) =>
                     url: 'https://syrflover.co',
                 },
             });
-            resolve(message);
+            resolve();
         } catch (e) {
             reject(new StateError(e.message, message));
         }

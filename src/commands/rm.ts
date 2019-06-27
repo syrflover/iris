@@ -6,7 +6,7 @@ import { StateError } from '../state';
 export const rm: CommandFunc = (
     parameter: string,
     message: Message,
-): Promise<Message> =>
+): Promise<void> =>
     new Promise(async (resolve, reject) => {
         const removeAmount = parseInt(parameter, 10);
 
@@ -23,7 +23,7 @@ export const rm: CommandFunc = (
         message.channel
             .bulkDelete(messages)
             .then(() => {
-                resolve(message);
+                resolve();
             })
             .catch((error) => {
                 reject(new StateError(error.message, message));
