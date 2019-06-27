@@ -45,7 +45,7 @@ client.on('ready', () => console.info('ready'));
 client.on('message', (message) => {
     F.run(
         message,
-        F.tap((m) => console.log(m.content)),
+        // F.tap((m) => console.log(m.content)),
         toState(true),
         ignoreBot,
         checkPrefix(prefixes),
