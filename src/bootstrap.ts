@@ -20,3 +20,5 @@ const bootstrap = async () => {
         process.exit(1);
     }
 };
+
+bootstrap();
