@@ -3,6 +3,12 @@ import { Message } from 'discord.js';
 import { sayStore } from '../store/sayStore';
 import { StateError } from '../state';
 
+export const sayDisableH = `\`\`\`haskell
+{- delete the your sayEnable session -}
+sayDisable :: Maybe () -> IO ()
+sayDisable Nothing
+\`\`\``;
+
 export const sayDisable = (
     parameter: string,
     message: Message,

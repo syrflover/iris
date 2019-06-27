@@ -3,6 +3,12 @@ import { Message } from 'discord.js';
 import { CommandFunc } from './index';
 import { StateError } from '../state';
 
+export const rmH = `\`\`\`haskell
+{- remove messages -}
+rm :: Int -> IO ()
+rm 10
+\`\`\``;
+
 export const rm: CommandFunc = (
     parameter: string,
     message: Message,

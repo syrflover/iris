@@ -3,6 +3,13 @@ import * as F from 'nodekell';
 import { CommandFunc, commandList } from './index';
 import { Message } from 'discord.js';
 
+export const helpH = `\`\`\`haskell
+{- show help message of commands -}
+help :: Maybe String -> String
+help "uwu"
+help Nothing
+\`\`\``;
+
 export const help: CommandFunc = (
     parameter: string,
     message: Message,
@@ -14,12 +21,10 @@ export const help: CommandFunc = (
         );
 
         if (command) {
-            const [name, { description }] = command;
-
-            const r0 = `#${name}\n\n##description\n\n${description}`;
+            const [, { description }] = command;
 
             try {
-                await message.channel.send(`\`\`\`markdown\n${r0}\`\`\``);
+                await message.channel.send(description);
                 resolve();
             } catch (e) {
                 reject(e);

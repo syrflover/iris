@@ -8,6 +8,16 @@ import { CommandFunc } from './index';
 import { StateError } from '../state';
 import { findVoice } from './say';
 
+export const sayEnableH = `\`\`\`haskell
+{- not require say command
+   expires in after one hour from the last message -}
+sayEnable :: Maybe CharacterName -> IO ()
+sayEnable "--yuna"
+sayEnable Nothing -- default is yuna
+
+type CharacterName = String
+\`\`\``;
+
 export const sayEnable: CommandFunc = (
     parameter: string,
     message: Message,

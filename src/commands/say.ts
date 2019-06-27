@@ -10,6 +10,15 @@ import { siri } from '../lib/siri';
 import { voiceware } from '../lib/voiceware';
 import { replacer } from '../lib/utils/replacer';
 
+export const sayH = `\`\`\`haskell
+{- tts in voice channel -}
+say :: Maybe CharacterName -> String -> IO ()
+say "--yuna" "아 섹스 하고 싶다"
+say Nothing "아 섹스 하고 싶다"
+
+type CharacterName = String
+\`\`\``;
+
 const replaceRegExp: [RegExp, string][] = [
     [/-|"|\\|'|\||`|\$/g, ''], // bug fix
     [/~/g, ''], // bug fix

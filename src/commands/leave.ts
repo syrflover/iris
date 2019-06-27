@@ -1,9 +1,18 @@
 import { Message } from 'discord.js';
 import { StateError } from '../state';
 
+export const leaveH = `\`\`\`haskell
+{- leave voice channel -}
+leave :: Maybe All -> IO ()
+leave All
+leave Nothing
+
+data All = All
+\`\`\``;
+
 export const leave = (parameter: string, message: Message): Promise<void> =>
     new Promise((resolve, reject) => {
-        if (parameter === 'all') {
+        if (parameter.trim() === 'all') {
             message.client.voiceConnections.forEach((connection) => {
                 connection.channel.leave();
             });
