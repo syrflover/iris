@@ -23,7 +23,7 @@ const paths = {
     // dotenv: resolveApp('.env'),
     projectRoot: resolveApp(''),
     appBuild: resolveApp('build'),
-    appIndexTs: resolveApp('src/index.ts'),
+    appIndexTs: resolveApp('src/bootstrap.ts'),
     appTsLint: resolveApp('tslint.json'),
     appTsConfig: resolveApp('tsconfig.json'),
     appNodeModules: resolveApp('node_modules'),

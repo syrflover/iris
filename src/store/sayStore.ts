@@ -16,9 +16,3 @@ export interface ISayStore {
 // const sayStore: sayStoreType = new Map();
 
 export const sayStore = createStore<ISayStore>('./.store/say.json');
-
-sayStore.initialize().catch((e) => {
-    console.error(e);
-
-    process.exit(1);
-});

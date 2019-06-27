@@ -2,7 +2,6 @@ import * as F from 'nodekell';
 
 import * as Discord from 'discord.js';
 
-import { env } from './env';
 import { toState } from './state';
 import { commandMap } from './commands';
 import {
@@ -14,26 +13,10 @@ import {
     catcher,
 } from './handler/message';
 import { alwaysSay } from './lib/alwaysSay';
-import { mkdir } from './lib/mkdir';
-import { paths } from './lib/resolvePath';
 
-const client = new Discord.Client();
+export const client = new Discord.Client();
 
 const prefixes = ['> ', 'iris.'];
-
-try {
-    mkdir(paths.cache);
-} catch (e) {
-    console.error(e);
-
-    process.exit(1);
-}
-
-client.login(env.DISCORD_TOKEN).catch((error) => {
-    console.error(error);
-
-    process.exit(1);
-});
 
 client.on('error', (error) => {
     console.error(error);
