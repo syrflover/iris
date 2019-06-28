@@ -2,23 +2,33 @@ import { assert } from 'chai';
 
 import { commandParser, IFlags, Flag, IBaseCommandParseResult } from '../../src/lib/commandParser';
 
-describe('commandParser test', () => {
+describe('test commandParser', () => {
     it('default value', () => {
         interface IResult extends IBaseCommandParseResult {
-            effect: number;
-            name: string;
+            int: number;
+            float: number;
+            string: string;
+            boolean: boolean;
         }
 
         const input = 'hello world';
 
         const flags: IFlags = {
-            effect: {
-                type: Flag.float,
-                default: 0,
+            int: {
+                type: Flag.int,
+                default: 23,
             },
-            name: {
+            float: {
+                type: Flag.float,
+                default: 21.4,
+            },
+            string: {
                 type: Flag.string,
-                default: 'yuna',
+                default: 'default',
+            },
+            boolean: {
+                type: Flag.boolean,
+                default: false,
             },
         };
 
@@ -26,8 +36,10 @@ describe('commandParser test', () => {
 
         assert.deepStrictEqual(result, {
             content: 'hello world',
-            name: 'yuna',
-            effect: 0,
+            int: 23,
+            float: 21.4,
+            string: 'default',
+            boolean: false,
         });
     });
 
@@ -97,17 +109,40 @@ describe('commandParser test', () => {
                 name: 'chorong',
             });
         });
+
+        it('boolean', () => {
+            interface IResult extends IBaseCommandParseResult {
+                boolean: boolean;
+            }
+
+            const input = '--boolean hello world';
+
+            const flags: IFlags = {
+                boolean: {
+                    type: Flag.boolean,
+                    default: false,
+                },
+            };
+
+            const result = commandParser<IResult>(input, flags);
+
+            assert.deepStrictEqual(result, {
+                content: 'hello world',
+                boolean: true,
+            });
+        });
     });
 
-    describe('multiple flag', () => {
-        it('int float string', () => {
+    describe('multiple flags', () => {
+        it('int float string boolean', () => {
             interface IResult extends IBaseCommandParseResult {
                 int: number;
                 float: number;
                 string: string;
+                boolean: boolean;
             }
 
-            const input = '--int 132 --float 1.8 --string Lois Revive City';
+            const input = '--int 132 --float 1.8 --string Lois --boolean Revive City';
 
             const flags: IFlags = {
                 int: {
@@ -122,6 +157,10 @@ describe('commandParser test', () => {
                     type: Flag.string,
                     default: 'Night',
                 },
+                boolean: {
+                    type: Flag.boolean,
+                    default: false,
+                },
             };
 
             const result = commandParser<IResult>(input, flags);
@@ -131,6 +170,7 @@ describe('commandParser test', () => {
                 int: 132,
                 float: 1.8,
                 string: 'Lois',
+                boolean: true,
             });
         });
     });
