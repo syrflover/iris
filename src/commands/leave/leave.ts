@@ -1,14 +1,14 @@
 import { Message } from 'discord.js';
 import { StateError } from '../../state';
 import { CommandFunc } from '..';
-import { IBaseCommandParseResult } from '../../lib/commandParser';
+import { ILeaveCommandParseResult } from './flags';
 
-export const leave: CommandFunc = (
-    { content }: IBaseCommandParseResult,
+export const leave: CommandFunc<ILeaveCommandParseResult> = (
+    { all }: ILeaveCommandParseResult,
     message: Message,
 ): Promise<void> =>
     new Promise((resolve, reject) => {
-        if (content.trim() === 'all') {
+        if (all) {
             message.client.voiceConnections.forEach((connection) => {
                 connection.channel.leave();
             });

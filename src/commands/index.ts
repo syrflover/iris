@@ -7,7 +7,7 @@ import { IFlags, IBaseCommandParseResult } from '../lib/commandParser';
 import { uwu, uwuDescription } from './uwu';
 import { state, stateDescription, stateFlags } from './state';
 import { rm, rmDescription } from './rm';
-import { leave, leaveDescription } from './leave';
+import { leave, leaveDescription, leaveFlags } from './leave';
 import { say, sayDescription, sayFlags } from './say';
 import { sayEnable, sayEnableDescription, sayEnableFlags } from './sayEnable';
 import { sayDisable, sayDisableDescription } from './sayDisable';
@@ -52,7 +52,7 @@ export const commandList: [string, CommandInfo][] = [
         'leave',
         {
             run: F.curry(leave),
-            flags: {},
+            flags: leaveFlags,
             description: leaveDescription,
             requireContent: false,
         },
