@@ -12,18 +12,18 @@ export const help: CommandFunc = (
         const command = await F.find(([name]) => name === content, commandList);
 
         if (command) {
-            const [name, { flags, description }] = command;
+            const [name, { flags, description, requireContent }] = command;
 
             let example = name;
 
             for (const flag in flags) {
-                example += ` --${flag} <${flags[flag].type}>`;
+                example += ` --${flag} <${flags[flag].type} = ${flags[flag].default}>`;
             }
 
             const a = `\`\`\`markdown
 # usage
 
-${example}
+${example} ${requireContent ? `<message>` : ''}
 
 # description
 

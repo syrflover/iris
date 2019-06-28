@@ -30,23 +30,59 @@ export type CommandInfo = {
     run: CurriedCommandFunc<any>;
     flags: IFlags;
     description: string;
+    requireContent: boolean;
 };
 
 export type CommandMap = Map<string, CommandInfo>;
 
 export const commandList: [string, CommandInfo][] = [
-    ['help', { run: F.curry(help), flags: {}, description: helpDescription }],
-    ['uwu', { run: F.curry(uwu), flags: {}, description: uwuDescription }],
-    ['state', { run: F.curry(state), flags: stateFlags, description: stateDescription }],
-    ['rm', { run: F.curry(rm), flags: {}, description: rmDescription }],
-    ['leave', { run: F.curry(leave), flags: {}, description: leaveDescription }],
-    ['say', { run: F.curry(say), flags: sayFlags, description: sayDescription }],
+    ['help', { run: F.curry(help), flags: {}, description: helpDescription, requireContent: true }],
+    ['uwu', { run: F.curry(uwu), flags: {}, description: uwuDescription, requireContent: true }],
+    [
+        'state',
+        {
+            run: F.curry(state),
+            flags: stateFlags,
+            description: stateDescription,
+            requireContent: true,
+        },
+    ],
+    ['rm', { run: F.curry(rm), flags: {}, description: rmDescription, requireContent: true }],
+    [
+        'leave',
+        {
+            run: F.curry(leave),
+            flags: {},
+            description: leaveDescription,
+            requireContent: false,
+        },
+    ],
+    [
+        'say',
+        { run: F.curry(say), flags: sayFlags, description: sayDescription, requireContent: true },
+    ],
     [
         'sayEnable',
-        { run: F.curry(sayEnable), flags: sayEnableFlags, description: sayEnableDescription },
+        {
+            run: F.curry(sayEnable),
+            flags: sayEnableFlags,
+            description: sayEnableDescription,
+            requireContent: false,
+        },
     ],
-    ['sayDisable', { run: F.curry(sayDisable), flags: {}, description: sayDisableDescription }],
-    ['random', { run: F.curry(random), flags: {}, description: randomDescription }],
+    [
+        'sayDisable',
+        {
+            run: F.curry(sayDisable),
+            flags: {},
+            description: sayDisableDescription,
+            requireContent: false,
+        },
+    ],
+    [
+        'random',
+        { run: F.curry(random), flags: {}, description: randomDescription, requireContent: true },
+    ],
 ];
 
 export const commandMap: CommandMap = new Map(commandList);
