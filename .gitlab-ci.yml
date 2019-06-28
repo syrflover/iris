@@ -1,16 +1,9 @@
 image: node:10
 
-cache:
-    paths:
-        - node_modules/
-
-stages:
-    - test
-
 before_script:
     - npm install
 
-test:
+run_test:
     stage: test
     script:
         - npm run test
