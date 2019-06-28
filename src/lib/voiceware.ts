@@ -17,28 +17,31 @@ def get_file(message, id):
     return 0 */
 
 export interface IVoiceWareParams {
+    effect: number;
     speaker: number;
     dbsize: number;
 }
 
-export const voiceware = async (
+export const voiceware = (
     contents: string,
-    params: IVoiceWareParams = { speaker: 13, dbsize: 1 },
-) => {
-    const { speaker, dbsize } = params;
+    params: IVoiceWareParams = { effect: 0, speaker: 13, dbsize: 1 },
+): Promise<string> =>
+    new Promise(async (resolve, reject) => {
+        const { effect, speaker, dbsize } = params;
 
-    const voicewareUrl = 'http://www.voiceware.co.kr';
-    const voicewareParams = `contents=${contents}&effect=0&speaker=${speaker}&music=&samesample=&dbsize=${dbsize}`;
+        const voicewareUrl = 'http://www.voiceware.co.kr';
+        const voicewareParams = `contents=${contents}&effect=${effect}&speaker=${speaker}&music=&samesample=&dbsize=${dbsize}`;
 
-    const voiceUrl = await axios
-        .post(`${voicewareUrl}/tts/tts.exe`, voicewareParams, {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-        })
-        .then((res) => res.data);
-
-    return `${voicewareUrl}${voiceUrl}_bgm.wav`;
-
-    //  return voiceFile;
-};
+        try {
+            const voiceUrl = await axios
+                .post(`${voicewareUrl}/tts/tts.exe`, voicewareParams, {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                })
+                .then((res) => res.data);
+            resolve(`${voicewareUrl}${voiceUrl}_${effect ? 'eff' : ''}bgm.wav`);
+        } catch (error) {
+            reject(error);
+        }
+    });
