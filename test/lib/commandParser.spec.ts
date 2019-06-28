@@ -110,7 +110,7 @@ describe('test commandParser', () => {
             });
         });
 
-        it('boolean', () => {
+        it('true', () => {
             interface IResult extends IBaseCommandParseResult {
                 boolean: boolean;
             }
@@ -129,6 +129,28 @@ describe('test commandParser', () => {
             assert.deepStrictEqual(result, {
                 content: 'hello world',
                 boolean: true,
+            });
+        });
+
+        it('false', () => {
+            interface IResult extends IBaseCommandParseResult {
+                boolean: boolean;
+            }
+
+            const input = '--boolean false hello world';
+
+            const flags: IFlags = {
+                boolean: {
+                    type: Flag.boolean,
+                    default: true,
+                },
+            };
+
+            const result = commandParser<IResult>(input, flags);
+
+            assert.deepStrictEqual(result, {
+                content: 'hello world',
+                boolean: false,
             });
         });
     });
