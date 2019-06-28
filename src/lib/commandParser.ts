@@ -65,7 +65,10 @@ export const commandParser = <R extends IBaseCommandParseResult = IBaseCommandPa
               });
 
         r[flag] = parameter;
-        r.content = r.content.replace(`--${flag} ${parameter}`, '').trim();
+        r.content = r.content
+            .replace(`--${flag} ${parameter}`, '')
+            .replace(`--${flag}`, '')
+            .trim();
     }
 
     return r as R;
