@@ -1,18 +1,14 @@
 import { Message } from 'discord.js';
-import { StateError } from '../state';
+import { StateError } from '../../state';
+import { CommandFunc } from '..';
+import { IBaseCommandParseResult } from '../../lib/commandParser';
 
-export const leaveH = `\`\`\`haskell
-{- leave voice channel -}
-leave :: Maybe All -> IO ()
-leave All
-leave Nothing
-
-data All = All
-\`\`\``;
-
-export const leave = (parameter: string, message: Message): Promise<void> =>
+export const leave: CommandFunc = (
+    { content }: IBaseCommandParseResult,
+    message: Message,
+): Promise<void> =>
     new Promise((resolve, reject) => {
-        if (parameter.trim() === 'all') {
+        if (content.trim() === 'all') {
             message.client.voiceConnections.forEach((connection) => {
                 connection.channel.leave();
             });

@@ -6,9 +6,9 @@ import { StateType, StateError } from '../state';
 import { CommandMap } from '../commands';
 
 import * as emoji from '../lib/emoji';
+import { commandParser } from '../lib/commandParser';
 
-export const success = ([_, message]: StateType<any, Message>) =>
-    message.react(emoji.success);
+export const success = ([_, message]: StateType<any, Message>) => message.react(emoji.success);
 
 export const ignoreBot = (
     state: StateType<boolean, Message>,
@@ -16,8 +16,7 @@ export const ignoreBot = (
     new Promise((resolve, reject) => {
         const [, message] = state;
 
-        const isBot =
-            message.author.bot || message.author.id !== message.client.user.id;
+        const isBot = message.author.bot || message.author.id !== message.client.user.id;
 
         if (isBot) {
             resolve(state);
@@ -27,18 +26,12 @@ export const ignoreBot = (
     });
 
 export const checkPrefix = F.curry(
-    (
-        prefixes: string[],
-        state: StateType<boolean, Message>,
-    ): Promise<StateType<string, Message>> =>
+    (prefixes: string[], state: StateType<boolean, Message>): Promise<StateType<string, Message>> =>
         new Promise(async (resolve, reject) => {
             const [, message] = state;
             const content = message.content.trim();
 
-            const prefixInMessage = await F.find(
-                (pf) => content.startsWith(pf),
-                prefixes,
-            );
+            const prefixInMessage = await F.find((pf) => content.startsWith(pf), prefixes);
 
             if (prefixInMessage) {
                 resolve([content.replace(prefixInMessage, ''), message, '']);
@@ -60,7 +53,9 @@ export const checkCommand = F.curry(
             const command = commandMap.get(inputCommand);
 
             if (command) {
-                resolve([command.run(parameter.join(' ')), message, _]);
+                const commandParseResult = commandParser(parameter.join(' '), command.flags);
+
+                resolve([command.run(commandParseResult), message, _]);
                 return;
             }
             reject(new StateError('Not Found Command', message));

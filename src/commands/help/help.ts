@@ -1,30 +1,21 @@
 import * as F from 'nodekell';
 
-import { CommandFunc, commandList } from './index';
+import { CommandFunc, commandList } from '../index';
 import { Message } from 'discord.js';
-
-export const helpH = `\`\`\`haskell
-{- show help message of commands -}
-help :: Maybe String -> String
-help "uwu"
-help Nothing
-\`\`\``;
+import { IBaseCommandParseResult } from '../../lib/commandParser';
 
 export const help: CommandFunc = (
-    parameter: string,
+    { content }: IBaseCommandParseResult,
     message: Message,
 ): Promise<void> =>
     new Promise(async (resolve, reject) => {
-        const command = await F.find(
-            ([name]) => name === parameter,
-            commandList,
-        );
+        const command = await F.find(([name]) => name === content, commandList);
 
         if (command) {
-            const [, { description }] = command;
+            const [, { usage }] = command;
 
             try {
-                await message.channel.send(description);
+                await message.channel.send(usage);
                 resolve();
             } catch (e) {
                 reject(e);

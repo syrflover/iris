@@ -1,20 +1,15 @@
 import { Message } from 'discord.js';
 
-import { CommandFunc } from './index';
-import { StateError } from '../state';
-
-export const rmH = `\`\`\`haskell
-{- remove messages -}
-rm :: Int -> IO ()
-rm 10
-\`\`\``;
+import { CommandFunc } from '../index';
+import { StateError } from '../../state';
+import { IBaseCommandParseResult } from '../../lib/commandParser';
 
 export const rm: CommandFunc = (
-    parameter: string,
+    { content }: IBaseCommandParseResult,
     message: Message,
 ): Promise<void> =>
     new Promise(async (resolve, reject) => {
-        const removeAmount = parseInt(parameter, 10);
+        const removeAmount = parseInt(content, 10);
 
         if (isNaN(removeAmount)) {
             reject(new StateError('parameter must be number', message));

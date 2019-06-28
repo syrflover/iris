@@ -2,41 +2,45 @@ import * as F from 'nodekell';
 
 import { Message } from 'discord.js';
 
-import { uwu, uwuH } from './uwu';
-import { state, stateH } from './state';
-import { rm, rmH } from './rm';
-import { leave, leaveH } from './leave';
-import { say, sayH } from './say';
-import { sayEnable, sayEnableH } from './sayEnable';
-import { sayDisable, sayDisableH } from './sayDisable';
-import { help, helpH } from './help';
-import { random, randomH } from './random';
+import { IFlags, IBaseCommandParseResult } from '../lib/commandParser';
 
-export type CommandFunc = (
-    parameter: string,
+import { uwu, uwuUsage } from './uwu';
+import { state, stateUsage } from './state';
+import { rm, rmUsage } from './rm';
+import { leave, leaveUsage } from './leave';
+import { say, sayUsage, sayFlags } from './say';
+import { sayEnable, sayEnableUsage } from './sayEnable';
+import { sayDisable, sayDisableUsage } from './sayDisable';
+import { help, helpUsage } from './help';
+import { random, randomUsage } from './random';
+
+export type CommandFunc<C extends IBaseCommandParseResult = IBaseCommandParseResult> = (
+    commandParseResult: C,
     message: Message,
 ) => Promise<void>;
 
-export type CurriedCommandFunc = F.CurriedFunction2<
-    string,
-    Message,
-    Promise<void>
->;
+export type CurriedCommandFunc<
+    C extends IBaseCommandParseResult = IBaseCommandParseResult
+> = F.CurriedFunction2<C, Message, Promise<void>>;
 
-export type CommandInfo = { run: CurriedCommandFunc; description: string };
+export type CommandInfo = {
+    run: CurriedCommandFunc<any>;
+    flags: IFlags;
+    usage: string;
+};
 
 export type CommandMap = Map<string, CommandInfo>;
 
 export const commandList: [string, CommandInfo][] = [
-    ['help', { run: F.curry(help), description: helpH }],
-    ['uwu', { run: F.curry(uwu), description: uwuH }],
-    ['state', { run: F.curry(state), description: stateH }],
-    ['rm', { run: F.curry(rm), description: rmH }],
-    ['leave', { run: F.curry(leave), description: leaveH }],
-    ['say', { run: F.curry(say), description: sayH }],
-    ['sayEnable', { run: F.curry(sayEnable), description: sayEnableH }],
-    ['sayDisable', { run: F.curry(sayDisable), description: sayDisableH }],
-    ['random', { run: F.curry(random), description: randomH }],
+    ['help', { run: F.curry(help), flags: {}, usage: helpUsage }],
+    ['uwu', { run: F.curry(uwu), flags: {}, usage: uwuUsage }],
+    ['state', { run: F.curry(state), flags: {}, usage: stateUsage }],
+    ['rm', { run: F.curry(rm), flags: {}, usage: rmUsage }],
+    ['leave', { run: F.curry(leave), flags: {}, usage: leaveUsage }],
+    ['say', { run: F.curry(say), flags: sayFlags, usage: sayUsage }],
+    ['sayEnable', { run: F.curry(sayEnable), flags: {}, usage: sayEnableUsage }],
+    ['sayDisable', { run: F.curry(sayDisable), flags: {}, usage: sayDisableUsage }],
+    ['random', { run: F.curry(random), flags: {}, usage: randomUsage }],
 ];
 
 export const commandMap: CommandMap = new Map(commandList);

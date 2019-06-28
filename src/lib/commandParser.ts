@@ -49,9 +49,7 @@ const getParameter = (param: string, flag: { name: string; type: Flag }) => {
     }
 };
 
-export const commandParser = <
-    R extends IBaseCommandParseResult = IBaseCommandParseResult
->(
+export const commandParser = <R extends IBaseCommandParseResult = IBaseCommandParseResult>(
     input: string,
     flags: IFlags,
 ): R => {

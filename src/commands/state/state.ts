@@ -1,16 +1,8 @@
 import { Message, ActivityType } from 'discord.js';
 
-import { CommandFunc } from './index';
-import { StateError } from '../state';
-
-export const stateH = `\`\`\`haskell
-{- set state of iris -}
-state :: Maybe ActivityType -> String -> IO ()
-state Playing "League of Legends"
-state Nothing "League of Legends"
-
-data ActivityType = Listening | Playing | Streaming | Watching
-\`\`\``;
+import { CommandFunc } from '../index';
+import { StateError } from '../../state';
+import { IBaseCommandParseResult } from '../../lib/commandParser';
 
 const activityTypes: ActivityType[] = [
     'LISTENING',
@@ -39,18 +31,18 @@ const toActivityType = (s: string) => {
 };
 
 export const state: CommandFunc = (
-    parameter: string,
+    { content }: IBaseCommandParseResult,
     message: Message,
 ): Promise<void> =>
     new Promise(async (resolve, reject) => {
-        let [type, ...game] = parameter.split(' ');
+        let [type, ...game] = content.split(' ');
 
         if (!toActivityType(type)) {
             game = [type, ...game];
             type = 'playing';
         }
 
-        if (parameter.length === 0 || game.length === 0) {
+        if (content.length === 0 || game.length === 0) {
             reject(new StateError('parameter must be string', message));
             return;
         }

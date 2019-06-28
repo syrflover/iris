@@ -4,20 +4,12 @@ import * as F from 'nodekell';
 
 import { Message, StreamDispatcher } from 'discord.js';
 
-import { CommandFunc } from './index';
-import { StateError } from '../state';
-import { siri } from '../lib/siri';
-import { voiceware } from '../lib/voiceware';
-import { replacer } from '../lib/replacer';
-
-export const sayH = `\`\`\`haskell
-{- tts in voice channel -}
-say :: Maybe CharacterName -> String -> IO ()
-say "--yuna" "아 섹스 하고 싶다"
-say Nothing "아 섹스 하고 싶다"
-
-type CharacterName = String
-\`\`\``;
+import { CommandFunc } from '../index';
+import { StateError } from '../../state';
+import { siri } from '../../lib/siri';
+import { voiceware } from '../../lib/voiceware';
+import { replacer } from '../../lib/replacer';
+import { ISayCommandParseResult } from './flags';
 
 const replaceRegExp: [RegExp, string][] = [
     [/-|"|\\|'|\||`|\$/g, ''], // bug fix
@@ -34,13 +26,8 @@ const ignoreRegExp: RegExp[] = [
     /^shigure/, // shigure bot command
 ];
 
-export const findVoice = (
-    voices: typeof import('../voices.json'),
-    content: string,
-) => F.find(({ name }) => new RegExp(`--${name}`).test(content), voices);
-
-export const say: CommandFunc = (
-    parameter: string,
+export const say: CommandFunc<ISayCommandParseResult> = (
+    { content, effect, name }: ISayCommandParseResult,
     message: Message,
 ): Promise<void> =>
     new Promise(async (resolve, reject) => {
@@ -49,28 +36,18 @@ export const say: CommandFunc = (
             return;
         }
 
-        const hasSomeIgnorePattern = await F.some(
-            (reg) => reg.test(parameter),
-            ignoreRegExp,
-        );
+        const hasSomeIgnorePattern = await F.some((reg) => reg.test(content), ignoreRegExp);
 
         if (hasSomeIgnorePattern) {
             reject(new StateError('Ignore regexp test', message));
             return;
         }
 
-        const voices = await import('../voices.json');
+        const voices = await import('../../voices.json');
 
-        const voiceNames = voices.map(
-            ({ name }) =>
-                [new RegExp(`--${name}`, 'g'), ''] as [RegExp, string],
-        );
+        const voice = await F.find(({ name: voicename }) => voicename === name, voices);
 
-        const sayText = replacer([...voiceNames, ...replaceRegExp], parameter);
-
-        const voice = /--[a-z0-9]/i.test(parameter)
-            ? await findVoice(voices, parameter)
-            : await F.find(({ name }) => name === 'yuna', voices);
+        const sayText = replacer([...replaceRegExp], content);
 
         if (!voice) {
             reject(new StateError('Has not this voice', message));
@@ -98,6 +75,7 @@ export const say: CommandFunc = (
                 const { speaker, dbsize } = voice.params!;
 
                 const sayURL = await voiceware(sayText, {
+                    effect,
                     speaker,
                     dbsize,
                 });

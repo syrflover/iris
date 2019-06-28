@@ -1,16 +1,12 @@
 import { Message } from 'discord.js';
 
-import { sayStore } from '../store/sayStore';
-import { StateError } from '../state';
+import { sayStore } from '../../store/sayStore';
+import { StateError } from '../../state';
+import { CommandFunc } from '..';
+import { IBaseCommandParseResult } from '../../lib/commandParser';
 
-export const sayDisableH = `\`\`\`haskell
-{- delete the your sayEnable session -}
-sayDisable :: Maybe () -> IO ()
-sayDisable Nothing
-\`\`\``;
-
-export const sayDisable = (
-    parameter: string,
+export const sayDisable: CommandFunc = (
+    { content }: IBaseCommandParseResult,
     message: Message,
 ): Promise<void> =>
     new Promise(async (resolve, reject) => {

@@ -3,22 +3,19 @@ import * as F from 'nodekell';
 import { Message } from 'discord.js';
 
 import { sayStore } from '../store/sayStore';
-import { say } from '../commands/say';
+import { say } from '../commands/say/say';
+import { commandParser } from './commandParser';
+import { sayFlags } from '../commands/say';
+import { ISayCommandParseResult } from '../commands/say/flags';
 
-export const alwaysSay = (
-    prefixes: string[],
-    message: Message,
-): Promise<void> =>
+export const alwaysSay = (prefixes: string[], message: Message): Promise<void> =>
     new Promise(async (resolve, reject) => {
         const userid = message.author.id;
         const sayData = await sayStore.read();
         const saySession = sayData[userid];
         const voiceChannel = message.member.voiceChannel;
 
-        const hasPrefix = await F.some(
-            (pf) => message.content.startsWith(pf),
-            prefixes,
-        );
+        const hasPrefix = await F.some((pf) => message.content.startsWith(pf), prefixes);
 
         if (hasPrefix) {
             resolve();
@@ -36,7 +33,12 @@ export const alwaysSay = (
             });
 
             try {
-                await say(`${saySession.mode} ${message.content}`, message);
+                const sayCommandParseResult = commandParser<ISayCommandParseResult>(
+                    `${saySession.mode} ${message.content}`,
+                    sayFlags,
+                );
+
+                await say(sayCommandParseResult, message);
                 resolve();
             } catch (error) {
                 reject(error);

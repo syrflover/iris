@@ -2,29 +2,15 @@ import * as F from 'nodekell';
 
 import { Message } from 'discord.js';
 
-import { CommandFunc } from './index';
-
-export const randomH = `\`\`\`haskell
-{- returns random int -}
-random :: Maybe () -> Int
-random Nothing -- 0 ~ 4294967295
-
-random :: Int -> Int
-random 10      -- 0 ~ 9
-
-random :: Int -> Int -> Int
-random 14 23   -- 14 ~ 22
-
-random :: [String] -> String
-random ["엄지", "검지", "중지", "약지", "새끼"]
-\`\`\``;
+import { CommandFunc } from '../index';
+import { IBaseCommandParseResult } from '../../lib/commandParser';
 
 export const random: CommandFunc = (
-    parameter: string,
+    { content }: IBaseCommandParseResult,
     message: Message,
 ): Promise<void> =>
     new Promise(async (resolve, reject) => {
-        const t = parameter.split(' ');
+        const t = content.split(' ');
 
         const [a, ...b] = t.map((e) => parseInt(e, 10));
 
