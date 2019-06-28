@@ -10,5 +10,29 @@
             "speaker": 13,
             "dbsize": 1
         }
+    },
+    {
+        "name": "hosik",
+        "type": "voiceware",
+        "params": {
+            "speaker": 85,
+            "dbsize": 4
+        }
+    },
+    {
+        "name": "hojin",
+        "type": "voiceware",
+        "params": {
+            "speaker": 90,
+            "dbsize": 4
+        }
+    },
+    {
+        "name": "kangmo",
+        "type": "voiceware",
+        "params": {
+            "speaker": 91,
+            "dbsize": 4
+        }
     }
 ]
