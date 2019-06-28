@@ -1,7 +1,7 @@
 export const enum Flag {
-    float,
-    int,
-    string,
+    float = 'float',
+    int = 'int',
+    string = 'string',
     // void,
 }
 

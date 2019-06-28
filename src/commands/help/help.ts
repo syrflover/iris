@@ -12,10 +12,26 @@ export const help: CommandFunc = (
         const command = await F.find(([name]) => name === content, commandList);
 
         if (command) {
-            const [, { usage }] = command;
+            const [name, { flags, usage }] = command;
+
+            let example = name;
+
+            for (const flag in flags) {
+                example += ` --${flag} <${flags[flag].type}>`;
+            }
+
+            const a = `\`\`\`markdown
+# usage
+
+${example}
+
+# description
+
+${usage}
+\`\`\``;
 
             try {
-                await message.channel.send(usage);
+                await message.channel.send(a);
                 resolve();
             } catch (e) {
                 reject(e);
@@ -23,13 +39,13 @@ export const help: CommandFunc = (
             return;
         }
 
-        const r1 = commandList
+        const b = commandList
             .map(([name]) => `- ${name}\n\n`)
             .join('')
             .trim();
 
         try {
-            await message.channel.send(`\`\`\`markdown\n${r1}\`\`\``);
+            await message.channel.send(`\`\`\`markdown\n${b}\`\`\``);
             resolve();
         } catch (e) {
             reject(e);
