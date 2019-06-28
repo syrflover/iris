@@ -12,7 +12,11 @@ export interface IFlags {
     };
 }
 
-export interface IBaseCommandParseResult {
+export interface IDictionary {
+    [index: string]: any;
+}
+
+export interface IBaseCommandParseResult extends IDictionary {
     content: string;
 }
 
@@ -45,10 +49,15 @@ const getParameter = (param: string, flag: { name: string; type: Flag }) => {
     }
 };
 
-export const commandParser = (content: string, flags: IFlags) => {
-    const st = content.split(' ').filter((e) => e.replace(/ /g, ''));
+export const commandParser = <
+    R extends IBaseCommandParseResult = IBaseCommandParseResult
+>(
+    input: string,
+    flags: IFlags,
+): R => {
+    const st = input.split(' ').filter((e) => e.replace(/ /g, ''));
 
-    const r: { [flag: string]: any; content: string } = { content };
+    const r = { content: input } as IBaseCommandParseResult;
 
     for (const flag in flags) {
         const flagIndex = st.findIndex((s) => s === `--${flag}`);
@@ -66,5 +75,5 @@ export const commandParser = (content: string, flags: IFlags) => {
         r.content = r.content.replace(`--${flag} ${parameter}`, '').trim();
     }
 
-    return r;
+    return r as R;
 };
