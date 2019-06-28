@@ -1,11 +1,6 @@
 import { assert } from 'chai';
 
-import {
-    commandParser,
-    IFlags,
-    Flag,
-    IBaseCommandParseResult,
-} from '../../src/lib/commandParser';
+import { commandParser, IFlags, Flag, IBaseCommandParseResult } from '../../src/lib/commandParser';
 
 describe('commandParser test', () => {
     it('default value', () => {
@@ -137,6 +132,54 @@ describe('commandParser test', () => {
                 float: 1.8,
                 string: 'Lois',
             });
+        });
+    });
+
+    describe('throw error', () => {
+        it('must be float', (done) => {
+            interface IResult extends IBaseCommandParseResult {
+                float: number;
+            }
+
+            const input = '--float abc hello world';
+
+            const flags: IFlags = {
+                float: {
+                    type: Flag.float,
+                    default: 0,
+                },
+            };
+
+            try {
+                const result = commandParser<IResult>(input, flags);
+            } catch (error) {
+                if (error.message === 'float must be float') {
+                    done();
+                }
+            }
+        });
+
+        it('must be int', (done) => {
+            interface IResult extends IBaseCommandParseResult {
+                int: number;
+            }
+
+            const input = '--int abc hello world';
+
+            const flags: IFlags = {
+                int: {
+                    type: Flag.int,
+                    default: 0,
+                },
+            };
+
+            try {
+                const result = commandParser<IResult>(input, flags);
+            } catch (error) {
+                if (error.message === 'int must be int') {
+                    done();
+                }
+            }
         });
     });
 });
