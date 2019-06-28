@@ -5,7 +5,7 @@ import { Message } from 'discord.js';
 import { IFlags, IBaseCommandParseResult } from '../lib/commandParser';
 
 import { uwu, uwuDescription } from './uwu';
-import { state, stateDescription } from './state';
+import { state, stateDescription, stateFlags } from './state';
 import { rm, rmDescription } from './rm';
 import { leave, leaveDescription } from './leave';
 import { say, sayDescription, sayFlags } from './say';
@@ -37,7 +37,7 @@ export type CommandMap = Map<string, CommandInfo>;
 export const commandList: [string, CommandInfo][] = [
     ['help', { run: F.curry(help), flags: {}, description: helpDescription }],
     ['uwu', { run: F.curry(uwu), flags: {}, description: uwuDescription }],
-    ['state', { run: F.curry(state), flags: {}, description: stateDescription }],
+    ['state', { run: F.curry(state), flags: stateFlags, description: stateDescription }],
     ['rm', { run: F.curry(rm), flags: {}, description: rmDescription }],
     ['leave', { run: F.curry(leave), flags: {}, description: leaveDescription }],
     ['say', { run: F.curry(say), flags: sayFlags, description: sayDescription }],
