@@ -12,17 +12,14 @@ export interface IFlags {
     };
 }
 
-export interface IDictionary {
-    [index: string]: any;
-}
-
-export interface IBaseCommandParseResult extends IDictionary {
+export interface IBaseCommandParseResult {
+    [flag: string]: any;
     content: string;
 }
 
 // export type Flags = [string, Flag][];
 
-const getParameter = (param: string, flag: { name: string; type: Flag }) => {
+const parseParameter = (param: string, flag: { name: string; type: Flag }) => {
     const trimp = param.trim();
 
     switch (flag.type) {
@@ -64,7 +61,7 @@ export const commandParser = <R extends IBaseCommandParseResult = IBaseCommandPa
 
         const parameter = hasNotFlag
             ? flags[flag].default
-            : getParameter(st[flagIndex + 1], {
+            : parseParameter(st[flagIndex + 1], {
                   name: flag,
                   type: flags[flag].type,
               });

@@ -9,10 +9,12 @@ import { state, stateUsage } from './state';
 import { rm, rmUsage } from './rm';
 import { leave, leaveUsage } from './leave';
 import { say, sayUsage, sayFlags } from './say';
-import { sayEnable, sayEnableUsage } from './sayEnable';
+import { sayEnable, sayEnableUsage, sayEnableFlags } from './sayEnable';
 import { sayDisable, sayDisableUsage } from './sayDisable';
 import { help, helpUsage } from './help';
 import { random, randomUsage } from './random';
+
+// export type CommandParseResult = ISayCommandParseResult | ISayEnableCommandParseResult;
 
 export type CommandFunc<C extends IBaseCommandParseResult = IBaseCommandParseResult> = (
     commandParseResult: C,
@@ -24,6 +26,7 @@ export type CurriedCommandFunc<
 > = F.CurriedFunction2<C, Message, Promise<void>>;
 
 export type CommandInfo = {
+    // FIX ME (TYPE ERROR)
     run: CurriedCommandFunc<any>;
     flags: IFlags;
     usage: string;
@@ -38,7 +41,7 @@ export const commandList: [string, CommandInfo][] = [
     ['rm', { run: F.curry(rm), flags: {}, usage: rmUsage }],
     ['leave', { run: F.curry(leave), flags: {}, usage: leaveUsage }],
     ['say', { run: F.curry(say), flags: sayFlags, usage: sayUsage }],
-    ['sayEnable', { run: F.curry(sayEnable), flags: {}, usage: sayEnableUsage }],
+    ['sayEnable', { run: F.curry(sayEnable), flags: sayEnableFlags, usage: sayEnableUsage }],
     ['sayDisable', { run: F.curry(sayDisable), flags: {}, usage: sayDisableUsage }],
     ['random', { run: F.curry(random), flags: {}, usage: randomUsage }],
 ];
