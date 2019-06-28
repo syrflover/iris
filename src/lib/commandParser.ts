@@ -2,7 +2,7 @@ export const enum Flag {
     float = 'float',
     int = 'int',
     string = 'string',
-    // void,
+    boolean = 'boolean',
 }
 
 export interface IFlags {
@@ -16,8 +16,6 @@ export interface IBaseCommandParseResult {
     [flag: string]: any;
     content: string;
 }
-
-// export type Flags = [string, Flag][];
 
 const parseParameter = (param: string, flag: { name: string; type: Flag }) => {
     const trimp = param.trim();
@@ -41,8 +39,8 @@ const parseParameter = (param: string, flag: { name: string; type: Flag }) => {
             return int;
         case Flag.string:
             return trimp;
-        /*  case Flag.void:
-              return ''; */
+        case Flag.boolean:
+            return trimp.toLowerCase() === 'false' ? false : true;
     }
 };
 
@@ -50,7 +48,7 @@ export const commandParser = <R extends IBaseCommandParseResult = IBaseCommandPa
     input: string,
     flags: IFlags,
 ): R => {
-    const st = input.split(' ').filter((e) => e.replace(/ /g, ''));
+    const st = [...input.split(' ').filter((e) => e.replace(/ /g, '')), ''];
 
     const r = { content: input } as IBaseCommandParseResult;
 
