@@ -20,5 +20,3 @@ export const uwu: CommandFunc = (
             reject(e);
         }
     });
-
-// 헛소리 대사 집어 넣자 여중생 코스프레 같은 거 ㅇㅇ
