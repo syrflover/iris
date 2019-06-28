@@ -1,3 +1,3 @@
 export { random } from './random';
 
-export { usage as randomUsage } from './usage';
+export { description as randomDescription } from './description';

@@ -1,3 +1,3 @@
 export { state } from './state';
 
-export { usage as stateUsage } from './usage';
+export { description as stateDescription } from './description';

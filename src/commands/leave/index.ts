@@ -1,3 +1,3 @@
 export { leave } from './leave';
 
-export { usage as leaveUsage } from './usage';
+export { description as leaveDescription } from './description';

@@ -1,3 +1,3 @@
 export { rm } from './rm';
 
-export { usage as rmUsage } from './usage';
+export { description as rmDescription } from './description';

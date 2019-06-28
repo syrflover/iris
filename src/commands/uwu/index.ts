@@ -1,3 +1,3 @@
 export { uwu } from './uwu';
 
-export { usage as uwuUsage } from './usage';
+export { description as uwuDescription } from './description';

@@ -12,7 +12,7 @@ export const help: CommandFunc = (
         const command = await F.find(([name]) => name === content, commandList);
 
         if (command) {
-            const [name, { flags, usage }] = command;
+            const [name, { flags, description }] = command;
 
             let example = name;
 
@@ -27,7 +27,7 @@ ${example}
 
 # description
 
-${usage}
+${description}
 \`\`\``;
 
             try {

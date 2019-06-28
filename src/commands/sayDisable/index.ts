@@ -1,3 +1,3 @@
 export { sayDisable } from './sayDisable';
 
-export { usage as sayDisableUsage } from './usage';
+export { description as sayDisableDescription } from './description';
