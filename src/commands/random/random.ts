@@ -15,7 +15,7 @@ export const random: CommandFunc = (
 
         const [a, b, ...c] = t.map((e) => parseInt(e, 10));
 
-        // end - begin > 1073741824 occurs error
+        // end - begin > 1073741824 occurs unknown error
         const er = F.isNil(b) ? a > 1073741824 : b - a > 1073741824;
 
         if (c.length > 0) {
@@ -24,7 +24,7 @@ export const random: CommandFunc = (
         }
 
         if (er) {
-            reject(new StateError('end - begin > 1073741824 occurs error', message));
+            reject(new StateError('end - begin > 1073741824 occurs unknown error', message));
             return;
         }
 
