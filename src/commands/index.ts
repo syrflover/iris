@@ -25,41 +25,75 @@ export type CurriedCommandFunc<
     C extends IBaseCommandParseResult = IBaseCommandParseResult
 > = F.CurriedFunction2<C, Message, Promise<void>>;
 
+export type ContentInfo = {
+    optional: boolean;
+    name: string;
+};
+
 export type CommandInfo = {
     // FIX ME (TYPE ERROR)
     run: CurriedCommandFunc<any>;
     flags: IFlags;
     description: string;
-    requireContent: boolean;
+    contents: ContentInfo[];
 };
 
 export type CommandMap = Map<string, CommandInfo>;
 
 export const commandList: [string, CommandInfo][] = [
-    ['help', { run: F.curry(help), flags: {}, description: helpDescription, requireContent: true }],
-    ['uwu', { run: F.curry(uwu), flags: {}, description: uwuDescription, requireContent: true }],
+    [
+        'help',
+        {
+            run: F.curry(help),
+            flags: {},
+            description: helpDescription,
+            contents: [{ optional: true, name: 'command' }],
+        },
+    ],
+    [
+        'uwu',
+        {
+            run: F.curry(uwu),
+            flags: {},
+            description: uwuDescription,
+            contents: [{ optional: true, name: 'message' }],
+        },
+    ],
     [
         'state',
         {
             run: F.curry(state),
             flags: stateFlags,
             description: stateDescription,
-            requireContent: true,
+            contents: [{ optional: true, name: 'mode' }, { optional: false, name: 'name' }],
         },
     ],
-    ['rm', { run: F.curry(rm), flags: {}, description: rmDescription, requireContent: true }],
+    [
+        'rm',
+        {
+            run: F.curry(rm),
+            flags: {},
+            description: rmDescription,
+            contents: [{ optional: false, name: 'count' }],
+        },
+    ],
     [
         'leave',
         {
             run: F.curry(leave),
             flags: leaveFlags,
             description: leaveDescription,
-            requireContent: false,
+            contents: [],
         },
     ],
     [
         'say',
-        { run: F.curry(say), flags: sayFlags, description: sayDescription, requireContent: true },
+        {
+            run: F.curry(say),
+            flags: sayFlags,
+            description: sayDescription,
+            contents: [{ optional: false, name: 'message' }],
+        },
     ],
     [
         'sayEnable',
@@ -67,7 +101,7 @@ export const commandList: [string, CommandInfo][] = [
             run: F.curry(sayEnable),
             flags: sayEnableFlags,
             description: sayEnableDescription,
-            requireContent: false,
+            contents: [],
         },
     ],
     [
@@ -76,12 +110,17 @@ export const commandList: [string, CommandInfo][] = [
             run: F.curry(sayDisable),
             flags: {},
             description: sayDisableDescription,
-            requireContent: false,
+            contents: [],
         },
     ],
     [
         'random',
-        { run: F.curry(random), flags: {}, description: randomDescription, requireContent: true },
+        {
+            run: F.curry(random),
+            flags: {},
+            description: randomDescription,
+            contents: [{ optional: true, name: 'begin' }, { optional: true, name: 'end' }],
+        },
     ],
 ];
 
