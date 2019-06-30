@@ -49,7 +49,9 @@ ${description}
             .trim();
 
         try {
-            await message.channel.send(`\`\`\`markdown\n${b}\`\`\``);
+            await message.channel.send(
+                `\`\`\`markdown\n${b}\n\n명령어에 대한 도움말을 보고 싶으시면 help <command> 를 입력하여 주세요\`\`\``,
+            );
             resolve();
         } catch (e) {
             reject(e);
