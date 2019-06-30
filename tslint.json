@@ -21,7 +21,8 @@
         "arrow-parens": false,
         "import-name": false,
         "forin": false,
-        "object-shorthand-properties-first": false
+        "object-shorthand-properties-first": false,
+        "no-increment-decrement": false
     },
     "rulesDirectory": []
 }
