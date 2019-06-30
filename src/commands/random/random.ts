@@ -13,13 +13,18 @@ export const random: CommandFunc = (
     new Promise(async (resolve, reject) => {
         const t = content.split(' ');
 
-        const [a, ...b] = t.map((e) => parseInt(e, 10));
+        const [a, b, ...c] = t.map((e) => parseInt(e, 10));
 
-        // end - begin < 1073741824 occurs error
-        const er = isNaN(b[0]) ? a > 1073741824 : b[0] - a > 1073741824;
+        // end - begin > 1073741824 occurs error
+        const er = F.isNil(b) ? a > 1073741824 : b - a > 1073741824;
+
+        if (c.length > 0) {
+            reject(new StateError('parameter length must under 3', message));
+            return;
+        }
 
         if (er) {
-            reject(new StateError('end - begin < 1073741824 occurs error', message));
+            reject(new StateError('end - begin > 1073741824 occurs error', message));
             return;
         }
 
@@ -28,7 +33,9 @@ export const random: CommandFunc = (
                 ? t.length > 1
                     ? t[F.random(t.length)]
                     : F.random()
-                : F.random(a, ...b);
+                : F.isNil(b)
+                ? F.random(a + 1)
+                : F.random(a, b + 1);
 
             await message.channel.send(r);
             resolve();
