@@ -24,7 +24,21 @@ client.on('error', (error) => {
     process.exit(1);
 });
 
-client.on('ready', () => console.info('ready'));
+client.on('ready', () => {
+    console.info('ready');
+
+    let count = 0;
+
+    F.interval(5000, () => {
+        if (count > prefixes.length - 1) {
+            count = 0;
+        }
+
+        const pf = prefixes[count++];
+
+        client.user.setPresence({ game: { name: `${pf}help`, type: 'PLAYING' } });
+    });
+});
 
 client.on('message', (message) => {
     alwaysSay(prefixes, message).catch(catcher);
