@@ -119,7 +119,7 @@ export const commandList: [string, CommandInfo][] = [
             run: F.curry(random),
             flags: {},
             description: randomDescription,
-            contents: [{ optional: true, name: 'begin' }, { optional: true, name: 'end' }],
+            contents: [{ optional: true, name: 'beginOrEnd' }, { optional: true, name: 'end' }],
         },
     ],
 ];
