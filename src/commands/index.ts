@@ -43,7 +43,7 @@ export type CommandInfo = {
     // FIX ME (TYPE ERROR)
     run: CurriedCommandFunc<any>;
     flags: IFlags;
-    description: string;
+    description: string | (() => Promise<string> | string);
     contents: ContentInfo[];
 };
 
