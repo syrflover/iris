@@ -18,13 +18,13 @@ export const client = new Discord.Client();
 
 const prefixes = ['> ', 'iris.'];
 
-client.on('error', (error) => {
+client.once('error', (error) => {
     console.error(error);
 
     process.exit(1);
 });
 
-client.on('ready', () => {
+client.once('ready', () => {
     console.info('ready');
 
     /* let count = 0;
