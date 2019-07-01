@@ -14,12 +14,24 @@ import { sayDisable, sayDisableDescription } from './sayDisable';
 import { help, helpDescription } from './help';
 import { random, randomDescription } from './random';
 
+import { ISayCommandParseResult } from './say/flags';
+import { ISayEnableCommandParseResult } from './sayEnable/flags';
+import { IStateCommandParseResult } from './state/flags';
+import { ILeaveCommandParseResult } from './leave/flags';
+import { update, updateDescription } from './update';
+
 // export type CommandParseResult = ISayCommandParseResult | ISayEnableCommandParseResult;
 
-export type CommandFunc<C extends IBaseCommandParseResult = IBaseCommandParseResult> = (
-    commandParseResult: C,
-    message: Message,
-) => Promise<void>;
+// tslint:disable: unified-signatures
+/* export interface CommandFunc {
+    (commandParseResult: ISayCommandParseResult, message: Message): Promise<void>;
+    (commandParseResult: ISayEnableCommandParseResult, message: Message): Promise<void>;
+    (commandParseResult: IStateCommandParseResult, message: Message): Promise<void>;
+    (commandParseResult: ILeaveCommandParseResult, message: Message): Promise<void>;
+    (commandParseResult: IBaseCommandParseResult, message: Message): Promise<void>;
+} */
+
+export type CommandFunc<C> = (commandParseResult: C, message: Message) => Promise<void>;
 
 export type CurriedCommandFunc<
     C extends IBaseCommandParseResult = IBaseCommandParseResult
@@ -120,6 +132,15 @@ export const commandList: [string, CommandInfo][] = [
             flags: {},
             description: randomDescription,
             contents: [{ optional: true, name: 'beginOrEnd' }, { optional: true, name: 'end' }],
+        },
+    ],
+    [
+        'update',
+        {
+            run: F.curry(update),
+            flags: {},
+            description: updateDescription,
+            contents: [],
         },
     ],
 ];

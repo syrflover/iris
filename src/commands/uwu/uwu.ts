@@ -3,7 +3,7 @@ import { Message } from 'discord.js';
 import { CommandFunc } from '../index';
 import { IBaseCommandParseResult } from '../../lib/commandParser';
 
-export const uwu: CommandFunc = (
+export const uwu: CommandFunc<IBaseCommandParseResult> = (
     { content }: IBaseCommandParseResult,
     message: Message,
 ): Promise<void> =>

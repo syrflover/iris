@@ -6,7 +6,7 @@ import { CommandFunc } from '../index';
 import { IBaseCommandParseResult } from '../../lib/commandParser';
 import { StateError } from '../../state';
 
-export const random: CommandFunc = (
+export const random: CommandFunc<IBaseCommandParseResult> = (
     { content }: IBaseCommandParseResult,
     message: Message,
 ): Promise<void> =>

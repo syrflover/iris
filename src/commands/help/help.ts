@@ -4,7 +4,7 @@ import { CommandFunc, commandList } from '../index';
 import { Message } from 'discord.js';
 import { IBaseCommandParseResult } from '../../lib/commandParser';
 
-export const help: CommandFunc = (
+export const help: CommandFunc<IBaseCommandParseResult> = (
     { content }: IBaseCommandParseResult,
     message: Message,
 ): Promise<void> =>

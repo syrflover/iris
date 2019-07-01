@@ -5,7 +5,7 @@ import { StateError } from '../../state';
 import { CommandFunc } from '..';
 import { IBaseCommandParseResult } from '../../lib/commandParser';
 
-export const sayDisable: CommandFunc = (
+export const sayDisable: CommandFunc<IBaseCommandParseResult> = (
     { content }: IBaseCommandParseResult,
     message: Message,
 ): Promise<void> =>
