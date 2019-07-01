@@ -4,7 +4,7 @@
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-        "start": "node build/index.js",
+        "start": "forever build/index.js",
         "test": "ts-mocha test/**/*.spec.ts",
         "dev": "ts-node-dev src/bootstrap.ts",
         "build": "rm -rf ./build && webpack --config webpack.config.ts --display-error-details",
@@ -40,6 +40,7 @@
         "axios": "^0.19.0",
         "discord.js": "^11.5.1",
         "dotenv": "^8.0.0",
+        "forever": "^1.0.0",
         "node-opus": "^0.3.2",
         "nodekell": "^1.12.2",
         "ramda": "^0.26.1",

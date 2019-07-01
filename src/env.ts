@@ -2,6 +2,7 @@ import * as dotenv from 'dotenv';
 
 export interface IEnv extends NodeJS.ProcessEnv {
     DISCORD_TOKEN: string;
+    GITLAB_TOKEN: string;
 }
 
 const getEnv = () => {
