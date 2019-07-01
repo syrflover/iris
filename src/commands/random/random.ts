@@ -30,7 +30,7 @@ export const random: CommandFunc = (
 
         try {
             const r = F.isNil(a)
-                ? t.length > 2
+                ? t.length > 1
                     ? t[F.random(t.length)]
                     : F.random()
                 : F.isNil(b)
