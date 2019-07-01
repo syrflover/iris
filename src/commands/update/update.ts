@@ -6,6 +6,7 @@ import { CommandFunc } from '..';
 import { IBaseCommandParseResult } from '../../lib/commandParser';
 import { spawnp } from '../../lib/spawnp';
 import { env } from '../../env';
+import { shouldUseYarn } from '../../lib/shouldUseYarn';
 
 export const update: CommandFunc<IBaseCommandParseResult> = (
     { content }: IBaseCommandParseResult,
@@ -13,15 +14,21 @@ export const update: CommandFunc<IBaseCommandParseResult> = (
 ): Promise<void> =>
     new Promise(async (resolve, reject) => {
         try {
-            const log = await spawnp('git', ['pull']);
+            const updateLog = await spawnp('git', ['pull']);
 
-            const alreadyUpToDate = 'Already up to date.' === log.trim();
+            const alreadyUpToDate = 'Already up to date.' === updateLog.trim();
 
-            await message.channel.send(alreadyUpToDate ? '이미 최신 버전이어요' : log);
+            await message.channel.send(alreadyUpToDate ? '이미 최신 버전이어요' : updateLog);
 
             resolve();
 
             if (!alreadyUpToDate && env.NODE_ENV !== 'development') {
+                const pm = (await shouldUseYarn()) ? 'yarn' : 'npm';
+
+                const buildLog = await spawnp(pm, ['run', 'build']);
+
+                await message.channel.send(buildLog);
+
                 await F.sleep(1000);
 
                 process.exit(0);
