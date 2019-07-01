@@ -31,7 +31,7 @@ ${exampleCommand.trim()} ${exampleContents}
 
 # description
 
-${typeof description === 'function' ? description() : description}
+${typeof description === 'function' ? await description() : description}
 \`\`\``;
 
             try {
