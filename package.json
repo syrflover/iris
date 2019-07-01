@@ -4,7 +4,7 @@
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-        "start": "NODE_ENV=production forever build/index.js",
+        "start": "NODE_ENV=production forever -l ./forever.log build/index.js",
         "test": "ts-mocha test/**/*.spec.ts",
         "dev": "NODE_ENV=development ts-node-dev src/bootstrap.ts",
         "build": "rm -rf ./build && webpack --config webpack.config.ts --display-error-details",
@@ -21,7 +21,6 @@
         "@types/webpack-node-externals": "^1.6.3",
         "awesome-typescript-loader": "^5.2.1",
         "chai": "^4.2.0",
-        "clean-webpack-plugin": "^3.0.0",
         "mocha": "^6.1.4",
         "prettier": "^1.18.2",
         "terser-webpack-plugin": "^1.3.0",
