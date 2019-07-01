@@ -21,11 +21,7 @@ export const spawnp = (c: string, a: string[]): Promise<string> =>
         });
 
         cmd.on('exit', () => {
-            if (stderr.trim().length > 0) {
-                reject(new Error(stderr));
-                return;
-            }
-            resolve(stdout);
+            resolve(stderr.trim().length > 0 ? stderr : stdout);
         });
 
         cmd.stderr.on('error', (e) => {
