@@ -13,10 +13,11 @@ import {
     catcher,
 } from './handler/message';
 import { alwaysSay } from './lib/alwaysSay';
+import { env } from './env';
 
 export const client = new Discord.Client();
 
-const prefixes = ['> ', 'iris.'];
+const prefixes = env.NODE_ENV === 'development' ? ['< ', 'illya.'] : ['> ', 'iris.'];
 
 client.once('error', (error) => {
     console.error(error);
