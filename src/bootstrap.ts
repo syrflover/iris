@@ -10,7 +10,7 @@ const bootstrap = async () => {
         await mkdir(paths.cache);
 
         // say session file
-        await sayStore.initialize();
+        await sayStore.initialize({});
 
         // connect discord gateway
         await client.login(env.DISCORD_TOKEN);
