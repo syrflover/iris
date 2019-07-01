@@ -3,14 +3,16 @@ import { Message } from 'discord.js';
 import { CommandFunc } from '../index';
 import { IBaseCommandParseResult } from '../../lib/commandParser';
 
-export const uwu: CommandFunc<IBaseCommandParseResult> = (
+export const uwu: CommandFunc<IBaseCommandParseResult, string> = (
     { content }: IBaseCommandParseResult,
     message: Message,
-): Promise<void> =>
+): Promise<string> =>
     new Promise(async (resolve, reject) => {
         try {
-            await message.channel.send(`${content} uwu`);
-            resolve();
+            const result = `${content} uwu`;
+
+            await message.channel.send(result);
+            resolve(result);
         } catch (e) {
             reject(e);
         }
