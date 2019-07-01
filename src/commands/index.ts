@@ -28,7 +28,7 @@ import { repl, replDescription } from './repl';
     (commandParseResult: IBaseCommandParseResult, message: Message): Promise<void>;
 } */
 
-export type CommandFunc<C> = (commandParseResult: C, message: Message) => Promise<void>;
+export type CommandFunc<C, R = any> = (commandParseResult: C, message: Message) => Promise<R>;
 
 export type CurriedCommandFunc<
     C extends IBaseCommandParseResult = IBaseCommandParseResult
