@@ -13,9 +13,9 @@ import { sayEnable, sayEnableDescription, sayEnableFlags } from './sayEnable';
 import { sayDisable, sayDisableDescription } from './sayDisable';
 import { help, helpDescription } from './help';
 import { random, randomDescription } from './random';
-
 import { update, updateDescription } from './update';
 import { host, hostDescription } from './host';
+import { repl, replDescription } from './repl';
 
 // export type CommandParseResult = ISayCommandParseResult | ISayEnableCommandParseResult;
 
@@ -149,6 +149,15 @@ export const commandList: [string, CommandInfo][] = [
             contents: [],
         },
     ],
+    /* [
+        'repl',
+        {
+            run: F.curry(repl),
+            flags: {},
+            description: replDescription,
+            contents: [{ optional: false, name: 'code' }],
+        },
+    ], */
 ];
 
 export const commandMap: CommandMap = new Map(commandList);
