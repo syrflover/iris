@@ -4,7 +4,7 @@ import * as nodeExternals from 'webpack-node-externals';
 // tslint:disable-next-line:no-var-requires
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 // tslint:disable-next-line:no-var-requires
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+// import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 /* import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'; */
 // this is TsconfigPathsPlugin error
@@ -16,8 +16,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 
 const appDirectory = fs.realpathSync(process.cwd());
-const resolveApp = (relativePath: string) =>
-    path.resolve(appDirectory, relativePath);
+const resolveApp = (relativePath: string) => path.resolve(appDirectory, relativePath);
 
 const paths = {
     // dotenv: resolveApp('.env'),
