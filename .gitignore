@@ -126,3 +126,5 @@ yarn.lock
 .store/
 
 build/
+
+forever.log
