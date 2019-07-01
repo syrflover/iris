@@ -14,10 +14,6 @@ import { sayDisable, sayDisableDescription } from './sayDisable';
 import { help, helpDescription } from './help';
 import { random, randomDescription } from './random';
 
-import { ISayCommandParseResult } from './say/flags';
-import { ISayEnableCommandParseResult } from './sayEnable/flags';
-import { IStateCommandParseResult } from './state/flags';
-import { ILeaveCommandParseResult } from './leave/flags';
 import { update, updateDescription } from './update';
 
 // export type CommandParseResult = ISayCommandParseResult | ISayEnableCommandParseResult;
