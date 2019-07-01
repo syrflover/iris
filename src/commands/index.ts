@@ -15,6 +15,7 @@ import { help, helpDescription } from './help';
 import { random, randomDescription } from './random';
 
 import { update, updateDescription } from './update';
+import { host, hostDescription } from './host';
 
 // export type CommandParseResult = ISayCommandParseResult | ISayEnableCommandParseResult;
 
@@ -136,6 +137,15 @@ export const commandList: [string, CommandInfo][] = [
             run: F.curry(update),
             flags: {},
             description: updateDescription,
+            contents: [],
+        },
+    ],
+    [
+        'host',
+        {
+            run: F.curry(host),
+            flags: {},
+            description: hostDescription,
             contents: [],
         },
     ],
