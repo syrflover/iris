@@ -5,6 +5,10 @@
 // 대신 말 해 드리다 ??
 export const description = async () => {
     const voices = await import('../../voices.json');
-    return `대신 말 해 드려요\n\n${voices.map((e) => e.name).join('\n')}`.trim();
+    return `대신 말 해 드려요
+
+# voice list
+
+${voices.map((e, i) => `- ${e.name}`).join('\n')}`.trim();
 };
 // export const description = 'tts in voice channel';
