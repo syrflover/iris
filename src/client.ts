@@ -27,7 +27,7 @@ client.on('error', (error) => {
 client.on('ready', () => {
     console.info('ready');
 
-    let count = 0;
+    /* let count = 0;
 
     F.interval(5000, () => {
         if (count > prefixes.length - 1) {
@@ -37,7 +37,7 @@ client.on('ready', () => {
         const pf = prefixes[count++];
 
         client.user.setPresence({ game: { name: `${pf}help`, type: 'PLAYING' } });
-    });
+    }); */
 });
 
 client.on('message', (message) => {
