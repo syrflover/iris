@@ -4,7 +4,7 @@
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-        "start": "NODE_ENV=production forever -l ./forever.log build/index.js",
+        "start": "NODE_ENV=production forever start -l ./forever.log build/index.js",
         "test": "ts-mocha test/**/*.spec.ts",
         "dev": "NODE_ENV=development ts-node-dev src/bootstrap.ts",
         "build": "rm -rf ./build && webpack --config webpack.config.ts --display-error-details",
