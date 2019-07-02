@@ -55,7 +55,9 @@ export const checkCommand = F.curry(
             if (command) {
                 const commandParseResult = commandParser(parameter.join(' '), command.flags);
 
-                resolve([command.run(commandParseResult), message, _]);
+                const curried = F.curry(command.run);
+
+                resolve([curried(commandParseResult), message, _]);
                 return;
             }
             reject(new StateError('Not Found Command', message));

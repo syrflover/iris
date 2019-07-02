@@ -17,22 +17,7 @@ import { update, updateDescription } from './update';
 import { host, hostDescription } from './host';
 import { repl, replDescription } from './repl';
 
-// export type CommandParseResult = ISayCommandParseResult | ISayEnableCommandParseResult;
-
-// tslint:disable: unified-signatures
-/* export interface CommandFunc {
-    (commandParseResult: ISayCommandParseResult, message: Message): Promise<void>;
-    (commandParseResult: ISayEnableCommandParseResult, message: Message): Promise<void>;
-    (commandParseResult: IStateCommandParseResult, message: Message): Promise<void>;
-    (commandParseResult: ILeaveCommandParseResult, message: Message): Promise<void>;
-    (commandParseResult: IBaseCommandParseResult, message: Message): Promise<void>;
-} */
-
 export type CommandFunc<C, R = any> = (commandParseResult: C, message: Message) => Promise<R>;
-
-export type CurriedCommandFunc<
-    C extends IBaseCommandParseResult = IBaseCommandParseResult
-> = F.CurriedFunction2<C, Message, Promise<void>>;
 
 export type ContentInfo = {
     optional: boolean;
@@ -41,7 +26,7 @@ export type ContentInfo = {
 
 export type CommandInfo = {
     // FIX ME (TYPE ERROR)
-    run: CurriedCommandFunc<any>;
+    run: CommandFunc<any>;
     flags: IFlags;
     description: string | (() => Promise<string> | string);
     contents: ContentInfo[];
@@ -53,7 +38,7 @@ export const commandList: [string, CommandInfo][] = [
     [
         'help',
         {
-            run: F.curry(help),
+            run: help,
             flags: {},
             description: helpDescription,
             contents: [{ optional: true, name: 'command' }],
@@ -62,7 +47,7 @@ export const commandList: [string, CommandInfo][] = [
     [
         'uwu',
         {
-            run: F.curry(uwu),
+            run: uwu,
             flags: {},
             description: uwuDescription,
             contents: [{ optional: true, name: 'message' }],
@@ -71,7 +56,7 @@ export const commandList: [string, CommandInfo][] = [
     [
         'state',
         {
-            run: F.curry(state),
+            run: state,
             flags: stateFlags,
             description: stateDescription,
             contents: [{ optional: true, name: 'mode' }, { optional: false, name: 'name' }],
@@ -80,7 +65,7 @@ export const commandList: [string, CommandInfo][] = [
     [
         'rm',
         {
-            run: F.curry(rm),
+            run: rm,
             flags: {},
             description: rmDescription,
             contents: [{ optional: false, name: 'count' }],
@@ -89,7 +74,7 @@ export const commandList: [string, CommandInfo][] = [
     [
         'leave',
         {
-            run: F.curry(leave),
+            run: leave,
             flags: leaveFlags,
             description: leaveDescription,
             contents: [],
@@ -98,7 +83,7 @@ export const commandList: [string, CommandInfo][] = [
     [
         'say',
         {
-            run: F.curry(say),
+            run: say,
             flags: sayFlags,
             description: sayDescription,
             contents: [{ optional: false, name: 'message' }],
@@ -107,7 +92,7 @@ export const commandList: [string, CommandInfo][] = [
     [
         'sayEnable',
         {
-            run: F.curry(sayEnable),
+            run: sayEnable,
             flags: sayEnableFlags,
             description: sayEnableDescription,
             contents: [],
@@ -116,7 +101,7 @@ export const commandList: [string, CommandInfo][] = [
     [
         'sayDisable',
         {
-            run: F.curry(sayDisable),
+            run: sayDisable,
             flags: {},
             description: sayDisableDescription,
             contents: [],
@@ -125,7 +110,7 @@ export const commandList: [string, CommandInfo][] = [
     [
         'random',
         {
-            run: F.curry(random),
+            run: random,
             flags: {},
             description: randomDescription,
             contents: [{ optional: true, name: 'beginOrEnd' }, { optional: true, name: 'end' }],
@@ -134,7 +119,7 @@ export const commandList: [string, CommandInfo][] = [
     [
         'update',
         {
-            run: F.curry(update),
+            run: update,
             flags: {},
             description: updateDescription,
             contents: [],
@@ -143,7 +128,7 @@ export const commandList: [string, CommandInfo][] = [
     [
         'host',
         {
-            run: F.curry(host),
+            run: host,
             flags: {},
             description: hostDescription,
             contents: [],
@@ -152,7 +137,7 @@ export const commandList: [string, CommandInfo][] = [
     /* [
         'repl',
         {
-            run: F.curry(repl),
+            run: (repl),
             flags: {},
             description: replDescription,
             contents: [{ optional: false, name: 'code' }],
