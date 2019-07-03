@@ -17,12 +17,12 @@ export const ignoreBot = (
     new Promise((resolve, reject) => {
         const [, message] = state;
 
-        if (message.author.bot) {
-            reject(new StateError('오빠가 너 같은 애랑 놀지 말랬어요', message));
-            return;
-        }
         if (message.author.id === message.client.user.id) {
             reject(new StateError('self', message));
+            return;
+        }
+        if (message.author.bot) {
+            reject(new StateError('오빠가 너 같은 애랑 놀지 말랬어요', message));
             return;
         }
         resolve(state);
