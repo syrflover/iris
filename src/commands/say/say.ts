@@ -62,11 +62,11 @@ export const say: CommandFunc<ISayCommandParseResult> = (
             case 'siri': {
                 const sayFile = await siri(sayText, voice.name);
 
-                const sayStream = fs.createReadStream(sayFile, {
+                /* const sayStream = fs.createReadStream(sayFile, {
                     autoClose: true,
-                });
+                }); */
 
-                dispatcher = connection.playStream(sayStream, {
+                dispatcher = connection.playFile(sayFile, {
                     volume: 0.7,
                 });
                 break;
