@@ -53,6 +53,16 @@ export const checkCommand = F.curry(
             const command = commandMap.get(inputCommand);
 
             if (command) {
+                if (command.owner) {
+                    reject(
+                        new StateError(
+                            '저의 오빠 또는 허가 받은 사람만 사용할 수 있는 명령어예요',
+                            message,
+                        ),
+                    );
+                    return;
+                }
+
                 const commandParseResult = commandParser(parameter.join(' '), command.flags);
 
                 const curried = F.curry(command.run);
@@ -60,7 +70,7 @@ export const checkCommand = F.curry(
                 resolve([curried(commandParseResult), message, _]);
                 return;
             }
-            reject(new StateError('Not Found Command', message));
+            reject(new StateError('찾을 수 없는 명령어예요', message));
         }),
 );
 
