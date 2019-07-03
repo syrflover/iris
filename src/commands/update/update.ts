@@ -12,11 +12,13 @@ export const update: CommandFunc<IBaseCommandParseResult> = (
 ): Promise<void> =>
     new Promise(async (resolve, reject) => {
         try {
-            const { result: updateLog, time: gitPullTime } = await spawnp('git', ['pull']);
+            const { result: updateLog, time: gitPullTime } = await spawnp('git', ['pull'], (data) =>
+                message.channel.send(data),
+            );
 
             const alreadyUpToDate = 'Already up to date.' === updateLog.trim();
 
-            await message.channel.send(`${alreadyUpToDate ? '이미 최신 버전이에요' : updateLog}`);
+            // await message.channel.send(`${alreadyUpToDate ? '이미 최신 버전이에요' : updateLog}`);
 
             resolve();
 
