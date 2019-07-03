@@ -8,7 +8,7 @@
         "stop": "forever stop \"iris\"",
         "test": "ts-mocha test/**/*.spec.ts",
         "dev": "NODE_ENV=development ts-node-dev src/bootstrap.ts",
-        "build": "rm -rf ./build && webpack --config webpack.config.ts --display-error-details",
+        "build": "rm -rf ./build && tsc -p tsconfig.json",
         "prettier": "prettier --config ./.prettierrc --write src/**/*.ts"
     },
     "devDependencies": {
