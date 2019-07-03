@@ -3,10 +3,11 @@ import { Message, ActivityType } from 'discord.js';
 import { CommandFunc } from '../index';
 import { StateError } from '../../state';
 import { IStateCommandParseResult } from './flags';
+import { stateStore } from '../../store/stateStore';
 
 const activityTypes: ActivityType[] = ['LISTENING', 'PLAYING', 'STREAMING', 'WATCHING'];
 
-const toActivityType = (s: string) => {
+const toActivityType = (s: string): ActivityType | undefined => {
     switch (s.toLowerCase().trim()) {
         // case 'l':
         case 'listening':
@@ -42,14 +43,17 @@ export const state: CommandFunc<IStateCommandParseResult> = (
             return;
         }
 
+        const activityType = toActivityType(type);
+
         try {
             await message.client.user.setPresence({
                 game: {
                     name: content,
-                    type: toActivityType(type),
+                    type: activityType,
                     url: 'https://syrflover.co',
                 },
             });
+            await stateStore.write({ name: content, type: activityType || 'PLAYING' });
             resolve();
         } catch (error) {
             reject(new StateError(error.message, message));

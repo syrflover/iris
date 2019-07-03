@@ -3,6 +3,7 @@ import { env } from './env';
 import { paths } from './lib/resolvePath';
 import { mkdir } from './lib/mkdir';
 import { sayStore } from './store/sayStore';
+import { stateStore } from './store/stateStore';
 
 const bootstrap = async () => {
     try {
@@ -12,8 +13,20 @@ const bootstrap = async () => {
         // say session file
         await sayStore.initialize({});
 
+        // state store file
+        await stateStore.initialize({ name: '> help', type: 'PLAYING' });
+
         // connect discord gateway
         await client.login(env.DISCORD_TOKEN);
+
+        // sync state
+        const { name, type } = await stateStore.read();
+        await client.user.setPresence({
+            game: {
+                name,
+                type,
+            },
+        });
     } catch (error) {
         console.error(error);
 
