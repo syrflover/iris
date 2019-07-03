@@ -1,11 +1,11 @@
-import * as F from 'nodekell';
-
 import { Message } from 'discord.js';
 
 import { CommandFunc } from '..';
 import { IBaseCommandParseResult } from 'command-parser';
 import { spawnp } from '../../lib/spawnp';
 import { StateError } from '../../state';
+
+const removeBashColorString = (st: string) => st.replace(/\[[0-9]+m/g, '').trim();
 
 export const sh: CommandFunc<IBaseCommandParseResult> = (
     { content }: IBaseCommandParseResult,
@@ -20,7 +20,9 @@ export const sh: CommandFunc<IBaseCommandParseResult> = (
         const [cmd, ...params] = content.split(' ');
 
         try {
-            const { time } = await spawnp(cmd, params, (data) => message.channel.send(data));
+            const { time } = await spawnp(cmd, params, (data) =>
+                message.channel.send(removeBashColorString(data)),
+            );
 
             resolve();
         } catch (error) {
