@@ -7,6 +7,7 @@ import { CommandMap } from '../commands';
 
 import * as emoji from '../lib/emoji';
 import { commandParser } from '../lib/commandParser';
+import { env } from '../env';
 
 export const success = ([_, message]: StateType<any, Message>) => message.react(emoji.success);
 
@@ -22,7 +23,7 @@ export const ignoreBot = (
             resolve(state);
             return;
         }
-        reject(new StateError('You are fucked bot', message));
+        reject(new StateError('오빠가 너 같은 애랑 놀지 말랬어요', message));
     });
 
 export const checkPrefix = F.curry(
@@ -53,10 +54,10 @@ export const checkCommand = F.curry(
             const command = commandMap.get(inputCommand);
 
             if (command) {
-                if (command.owner) {
+                if (command.owner && message.author.id !== env.OWNER_ID) {
                     reject(
                         new StateError(
-                            '저의 오빠 또는 허가 받은 사람만 사용할 수 있는 명령어예요',
+                            '해당 명령어는 저의 오빠 또는 허가받은 사람만 사용할 수 있어요',
                             message,
                         ),
                     );
@@ -70,7 +71,7 @@ export const checkCommand = F.curry(
                 resolve([curried(commandParseResult), message, _]);
                 return;
             }
-            reject(new StateError('찾을 수 없는 명령어예요', message));
+            reject(new StateError('해당 명령어를 찾을 수 없어요', message));
         }),
 );
 
