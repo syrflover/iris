@@ -1,4 +1,4 @@
-import { IFlags, Flag, IBaseCommandParseResult } from '../../lib/commandParser';
+import { IFlags, Flag, IBaseCommandParseResult } from 'command-parser';
 
 export interface ISayEnableCommandParseResult extends IBaseCommandParseResult {
     effect: number;

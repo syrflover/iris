@@ -1,12 +1,12 @@
 import * as F from 'nodekell';
 
 import { Message } from 'discord.js';
+import { commandParser } from 'command-parser';
 
 import { StateType, StateError } from '../state';
 import { CommandMap } from '../commands';
 
 import * as emoji from '../lib/emoji';
-import { commandParser } from '../lib/commandParser';
 import { env } from '../env';
 
 export const success = ([_, message]: StateType<any, Message>) => message.react(emoji.success);

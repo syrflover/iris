@@ -1,4 +1,4 @@
-import { IFlags, Flag, IBaseCommandParseResult } from '../../lib/commandParser';
+import { IFlags, Flag, IBaseCommandParseResult } from 'command-parser';
 
 export interface ILeaveCommandParseResult extends IBaseCommandParseResult {
     all: boolean;

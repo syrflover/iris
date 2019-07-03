@@ -2,7 +2,7 @@ import * as F from 'nodekell';
 
 import { CommandFunc, commandList } from '../index';
 import { Message } from 'discord.js';
-import { IBaseCommandParseResult } from '../../lib/commandParser';
+import { IBaseCommandParseResult } from 'command-parser';
 
 export const help: CommandFunc<IBaseCommandParseResult> = (
     { content }: IBaseCommandParseResult,

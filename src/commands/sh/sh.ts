@@ -3,7 +3,7 @@ import * as F from 'nodekell';
 import { Message } from 'discord.js';
 
 import { CommandFunc } from '..';
-import { IBaseCommandParseResult } from '../../lib/commandParser';
+import { IBaseCommandParseResult } from 'command-parser';
 import { spawnp } from '../../lib/spawnp';
 import { StateError } from '../../state';
 

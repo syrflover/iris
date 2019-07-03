@@ -3,7 +3,7 @@ import * as F from 'nodekell';
 import { Message } from 'discord.js';
 
 import { CommandFunc } from '../index';
-import { IBaseCommandParseResult } from '../../lib/commandParser';
+import { IBaseCommandParseResult } from 'command-parser';
 import { StateError } from '../../state';
 
 export const random: CommandFunc<IBaseCommandParseResult> = (

@@ -3,7 +3,7 @@ import { Message } from 'discord.js';
 import { sayStore } from '../../store/sayStore';
 import { StateError } from '../../state';
 import { CommandFunc } from '..';
-import { IBaseCommandParseResult } from '../../lib/commandParser';
+import { IBaseCommandParseResult } from 'command-parser';
 
 export const sayDisable: CommandFunc<IBaseCommandParseResult> = (
     { content }: IBaseCommandParseResult,

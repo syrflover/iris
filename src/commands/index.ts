@@ -2,7 +2,7 @@ import * as F from 'nodekell';
 
 import { Message } from 'discord.js';
 
-import { IFlags, IBaseCommandParseResult } from '../lib/commandParser';
+import { IFlags, IBaseCommandParseResult } from 'command-parser';
 
 import { uwu, uwuDescription } from './uwu';
 import { state, stateDescription, stateFlags } from './state';

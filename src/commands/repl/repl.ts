@@ -3,7 +3,7 @@ import * as NodeREPL from 'repl';
 import { Message } from 'discord.js';
 
 import { CommandFunc } from '..';
-import { IBaseCommandParseResult } from '../../lib/commandParser';
+import { IBaseCommandParseResult } from 'command-parser';
 import { Readable, Writable } from 'stream';
 
 /* const writer: NodeREPL.REPLWriter = (output) => output;
