@@ -42,7 +42,7 @@ export const repl: CommandFunc<IBaseCommandParseResult> = (
             }
         });
 
-        nodeREPL.write(`${content}\n`);
+        nodeREPL.write(`${content.replace(/^```(js|javascript)/, '').replace(/```$/, '')}\n`);
 
         nodeREPL.close();
     });
