@@ -29,10 +29,12 @@ export const repl: CommandFunc<IBaseCommandParseResult> = (
             output,
         });
 
+        const c = content.replace(/^```(js|javascript)/, '').replace(/```$/, '');
+
         nodeREPL.on('close', async () => {
             try {
                 const result = nodeREPL.lastError || nodeREPL.last;
-                const codeBox = `\`\`\`js\n${content}\n/*\n${result}\n*/\`\`\``;
+                const codeBox = `\`\`\`js\n${c}\n/*\n${result}\n*/\`\`\``;
 
                 await message.channel.send(codeBox);
 
@@ -42,7 +44,7 @@ export const repl: CommandFunc<IBaseCommandParseResult> = (
             }
         });
 
-        nodeREPL.write(`${content.replace(/^```(js|javascript)/, '').replace(/```$/, '')}\n`);
+        nodeREPL.write(`${c}\n`);
 
         nodeREPL.close();
     });
