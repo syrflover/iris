@@ -24,7 +24,12 @@ export const random: CommandFunc<IBaseCommandParseResult> = (
         } */
 
         if (er) {
-            reject(new StateError('end - begin > 1073741824 occurs unknown error', message));
+            reject(
+                new StateError(
+                    'begin과 end의 차이가 1073741824 이상일 때 알 수 없는 에러가 발생하여요',
+                    message,
+                ),
+            );
             return;
         }
 

@@ -41,9 +41,9 @@ export const sayEnable: CommandFunc<ISayEnableCommandParseResult> = (
                     throw new Error();
                 })
                 .catch((e) => {
-                    reject(new StateError('Failed write sayEnable session to sayStore', message));
+                    reject(new StateError('세션 저장에 실패하였어요', message));
                 });
             return;
         }
-        reject(new StateError('Need you join voice channel', message));
+        reject(new StateError('음성 채널에 입장하여 주세요', message));
     });

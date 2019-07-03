@@ -32,7 +32,7 @@ export const say: CommandFunc<ISayCommandParseResult> = (
 ): Promise<void> =>
     new Promise(async (resolve, reject) => {
         if (!message.member.voiceChannel) {
-            reject(new StateError('Need you join voice channel', message));
+            reject(new StateError('음성 채널에 입장하여 주세요', message));
             return;
         }
 
@@ -50,7 +50,7 @@ export const say: CommandFunc<ISayCommandParseResult> = (
         const sayText = replacer([...replaceRegExp], content);
 
         if (!voice) {
-            reject(new StateError('Has not this voice', message));
+            reject(new StateError('해당 목소리를 가진 사람이 없어요', message));
             return;
         }
 

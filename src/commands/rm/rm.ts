@@ -12,7 +12,7 @@ export const rm: CommandFunc<IBaseCommandParseResult> = (
         const removeAmount = parseInt(content, 10);
 
         if (isNaN(removeAmount)) {
-            reject(new StateError('parameter must be number', message));
+            reject(new StateError('인자는 정수 여야해요', message));
             return;
         }
         const messages = await message.channel

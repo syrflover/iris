@@ -27,5 +27,5 @@ export const leave: CommandFunc<ILeaveCommandParseResult> = (
             }
             return;
         }
-        reject(new StateError('need you join voice channel', message));
+        reject(new StateError('음성 채널에 입장하여 주세요', message));
     });
