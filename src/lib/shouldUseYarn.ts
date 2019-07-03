@@ -6,5 +6,5 @@ import { exec } from 'child_process';
 
 export const shouldUseYarn = (): Promise<boolean> =>
     new Promise((resolve, reject) => {
-        exec('yarnpkg --version', (error) => resolve(!!error));
+        exec('yarnpkg --version', (error) => resolve(!error));
     });
