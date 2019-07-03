@@ -16,6 +16,7 @@ import { random, randomDescription } from './random';
 import { update, updateDescription } from './update';
 import { host, hostDescription } from './host';
 import { repl, replDescription } from './repl';
+import { sh, shDescription } from './sh';
 
 export type CommandFunc<C, R = any> = (commandParseResult: C, message: Message) => Promise<R>;
 
@@ -30,6 +31,7 @@ export type CommandInfo = {
     flags: IFlags;
     description: string | (() => Promise<string> | string);
     contents: ContentInfo[];
+    owner?: boolean;
 };
 
 export type CommandMap = Map<string, CommandInfo>;
@@ -60,6 +62,7 @@ export const commandList: [string, CommandInfo][] = [
             flags: stateFlags,
             description: stateDescription,
             contents: [{ optional: true, name: 'mode' }, { optional: false, name: 'name' }],
+            owner: true,
         },
     ],
     [
@@ -123,6 +126,7 @@ export const commandList: [string, CommandInfo][] = [
             flags: {},
             description: updateDescription,
             contents: [],
+            owner: true,
         },
     ],
     [
@@ -134,15 +138,26 @@ export const commandList: [string, CommandInfo][] = [
             contents: [],
         },
     ],
-    /* [
+    [
         'repl',
         {
-            run: (repl),
+            run: repl,
             flags: {},
             description: replDescription,
             contents: [{ optional: false, name: 'code' }],
+            owner: true,
         },
-    ], */
+    ],
+    [
+        'sh',
+        {
+            run: sh,
+            flags: {},
+            description: shDescription,
+            contents: [{ optional: false, name: 'shell' }],
+            owner: true,
+        },
+    ],
 ];
 
 export const commandMap: CommandMap = new Map(commandList);
