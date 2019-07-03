@@ -1,5 +1,3 @@
-import * as fs from 'fs';
-
 import * as F from 'nodekell';
 
 import { Message, StreamDispatcher } from 'discord.js';
