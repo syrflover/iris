@@ -4,7 +4,7 @@
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-        "start": "NODE_ENV=production forever start --uid \"iris\" --append -l \"$PWD\"/forever.log build/index.js",
+        "start": "NODE_ENV=production forever start --uid \"iris\" --append -l \"$PWD\"/forever.log build/bootstrap.js",
         "stop": "forever stop \"iris\"",
         "test": "ts-mocha test/**/*.spec.ts",
         "dev": "NODE_ENV=development ts-node-dev src/bootstrap.ts",
