@@ -34,7 +34,7 @@ export const repl: CommandFunc<IBaseCommandParseResult> = (
         nodeREPL.on('close', async () => {
             try {
                 const result = nodeREPL.lastError || nodeREPL.last;
-                const codeBox = `\`\`\`js\n${c}\n/*\n${result}\n*/\`\`\``;
+                const codeBox = `\`\`\`js\n${result}\n\`\`\``;
 
                 await message.channel.send(codeBox);
 
