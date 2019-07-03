@@ -23,7 +23,9 @@ export const update: CommandFunc<IBaseCommandParseResult> = (
             resolve();
 
             if (!alreadyUpToDate && env.NODE_ENV !== 'development') {
-                await message.channel.send(`업데이트 받는데 ${gitPullTime / 1000}초 만큼 걸렸어요`);
+                await message.channel.send(
+                    `업데이트 받는 데 ${gitPullTime / 1000}초 만큼 걸렸어요`,
+                );
 
                 const pm = (await shouldUseYarn()) ? 'yarn' : 'npm';
 
@@ -35,7 +37,7 @@ export const update: CommandFunc<IBaseCommandParseResult> = (
 
                 const { time: buildTime } = await spawnp(pm, ['run', 'build']);
 
-                await message.channel.send(`빌드 하는데 ${buildTime / 1000}초 만큼 걸렸어요`);
+                await message.channel.send(`빌드 하는 데 ${buildTime / 1000}초 만큼 걸렸어요`);
 
                 await message.channel.send('재시작 할 거예요');
 
