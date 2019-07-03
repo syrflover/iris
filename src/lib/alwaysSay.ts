@@ -1,10 +1,10 @@
 import * as F from 'nodekell';
 
 import { Message } from 'discord.js';
+import { commandParser } from 'command-parser';
 
 import { sayStore } from '../store/sayStore';
 import { say } from '../commands/say/say';
-import { commandParser } from './commandParser';
 import { sayFlags } from '../commands/say';
 import { ISayCommandParseResult } from '../commands/say/flags';
 
