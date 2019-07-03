@@ -3,7 +3,6 @@ import { Message } from 'discord.js';
 import { CommandFunc } from '..';
 import { IBaseCommandParseResult } from 'command-parser';
 import { spawnp } from '../../lib/spawnp';
-import { env } from '../../env';
 import { shouldUseYarn } from '../../lib/shouldUseYarn';
 
 export const update: CommandFunc<IBaseCommandParseResult> = (
@@ -22,7 +21,7 @@ export const update: CommandFunc<IBaseCommandParseResult> = (
 
             resolve();
 
-            if (!alreadyUpToDate && env.NODE_ENV !== 'development') {
+            if (!alreadyUpToDate) {
                 await message.channel.send(
                     `업데이트 받는 데 ${gitPullTime / 1000}초 만큼 걸렸어요`,
                 );

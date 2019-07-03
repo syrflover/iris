@@ -64,6 +64,13 @@ export const checkCommand = F.curry(
                     return;
                 }
 
+                if (command.onlyProd && env.NODE_ENV === 'development') {
+                    reject(
+                        new StateError('해당 명령어는 개발 환경에서는 사용할 수 없어요', message),
+                    );
+                    return;
+                }
+
                 const commandParseResult = commandParser(parameter.join(' '), command.flags);
 
                 const curried = F.curry(command.run);

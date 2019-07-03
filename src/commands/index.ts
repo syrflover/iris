@@ -17,6 +17,7 @@ import { update, updateDescription } from './update';
 import { host, hostDescription } from './host';
 import { repl, replDescription } from './repl';
 import { sh, shDescription } from './sh';
+import { shutdown, shutdownFlags, shutdownDescription } from './shutdown';
 
 export type CommandFunc<C, R = any> = (commandParseResult: C, message: Message) => Promise<R>;
 
@@ -32,6 +33,7 @@ export type CommandInfo = {
     description: string | (() => Promise<string> | string);
     contents: ContentInfo[];
     owner?: boolean;
+    onlyProd?: boolean;
 };
 
 export type CommandMap = Map<string, CommandInfo>;
@@ -127,6 +129,7 @@ export const commandList: [string, CommandInfo][] = [
             description: updateDescription,
             contents: [],
             owner: true,
+            onlyProd: true,
         },
     ],
     [
@@ -156,6 +159,17 @@ export const commandList: [string, CommandInfo][] = [
             description: shDescription,
             contents: [{ optional: false, name: 'shell' }],
             owner: true,
+        },
+    ],
+    [
+        'shutdown',
+        {
+            run: shutdown,
+            flags: shutdownFlags,
+            description: shutdownDescription,
+            contents: [],
+            owner: true,
+            onlyProd: true,
         },
     ],
 ];
