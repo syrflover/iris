@@ -18,6 +18,7 @@ import { host, hostDescription } from './host';
 import { repl, replDescription } from './repl';
 import { sh, shDescription } from './sh';
 import { shutdown, shutdownFlags, shutdownDescription } from './shutdown';
+import { version, versionDescription } from './version';
 
 export type CommandFunc<C, R = any> = (commandParseResult: C, message: Message) => Promise<R>;
 
@@ -170,6 +171,15 @@ export const commandList: [string, CommandInfo][] = [
             contents: [],
             owner: true,
             onlyProd: true,
+        },
+    ],
+    [
+        'version',
+        {
+            run: version,
+            flags: {},
+            description: versionDescription,
+            contents: [],
         },
     ],
 ];
