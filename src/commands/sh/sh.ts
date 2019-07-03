@@ -12,6 +12,10 @@ export const sh: CommandFunc<IBaseCommandParseResult> = (
     message: Message,
 ) =>
     new Promise(async (resolve, reject) => {
+        if (content.length === 0) {
+            reject(new StateError('실행할 명령어를 입력하여 주세요', message));
+        }
+
         const [cmd, ...params] = content.split(' ');
 
         try {
