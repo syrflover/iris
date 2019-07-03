@@ -23,17 +23,19 @@ export const update: CommandFunc<IBaseCommandParseResult> = (
             resolve();
 
             if (!alreadyUpToDate && env.NODE_ENV !== 'development') {
+                await message.channel.send(`업데이트 받는데 ${gitPullTime / 1000}초 만큼 걸렸어요`);
+
                 const pm = (await shouldUseYarn()) ? 'yarn' : 'npm';
 
                 const { time: installTime } = await spawnp(pm, ['install']);
 
+                await message.channel.send(
+                    `패키지 설치하는 데 ${installTime / 1000}초 만큼 걸렸어요`,
+                );
+
                 const { time: buildTime } = await spawnp(pm, ['run', 'build']);
 
-                const totalTime = gitPullTime + installTime + buildTime;
-
-                await message.channel.send(
-                    `다운로드 / 패키지 업데이트 / 빌드 하는 데 ${totalTime / 1000}초 만큼 걸렸어요`,
-                );
+                await message.channel.send(`빌드 하는데 ${buildTime / 1000}초 만큼 걸렸어요`);
 
                 await message.channel.send('재시작 할 거예요');
 
