@@ -11,9 +11,9 @@ export const update: CommandFunc<IBaseCommandParseResult> = (
 ): Promise<void> =>
     new Promise(async (resolve, reject) => {
         try {
-            const { result: updateLog, time: gitPullTime } = await spawnp('git', ['pull'], (data) =>
-                message.channel.send(data),
-            );
+            const f = (data: string) => message.channel.send(data);
+
+            const { result: updateLog, time: gitPullTime } = await spawnp('git', ['pull'], f);
 
             const alreadyUpToDate = 'Already up to date.' === updateLog.trim();
 
@@ -28,13 +28,13 @@ export const update: CommandFunc<IBaseCommandParseResult> = (
 
                 const pm = (await shouldUseYarn()) ? 'yarn' : 'npm';
 
-                const { time: installTime } = await spawnp(pm, ['install']);
+                const { time: installTime } = await spawnp(pm, ['install'], f);
 
                 await message.channel.send(
                     `패키지 설치하는 데 ${installTime / 1000}초 만큼 걸렸어요`,
                 );
 
-                const { time: buildTime } = await spawnp(pm, ['run', 'build']);
+                const { time: buildTime } = await spawnp(pm, ['run', 'build'], f);
 
                 await message.channel.send(`빌드 하는 데 ${buildTime / 1000}초 만큼 걸렸어요`);
 
