@@ -17,13 +17,15 @@ export const ignoreBot = (
     new Promise((resolve, reject) => {
         const [, message] = state;
 
-        const isBot = message.author.bot || message.author.id !== message.client.user.id;
-
-        if (isBot) {
-            resolve(state);
+        if (message.author.bot) {
+            reject(new StateError('오빠가 너 같은 애랑 놀지 말랬어요', message));
             return;
         }
-        reject(new StateError('오빠가 너 같은 애랑 놀지 말랬어요', message));
+        if (message.author.id === message.client.user.id) {
+            reject(new StateError('self', message));
+            return;
+        }
+        resolve(state);
     });
 
 export const checkPrefix = F.curry(
@@ -96,6 +98,9 @@ export const runCommand = (
 export const catcher = (error: any) => {
     if (error instanceof StateError) {
         const message = error.dm;
+        if (error.message === 'self') {
+            return;
+        }
         if (error.message === 'Ignore regexp test') {
             message.react(emoji.fail);
             return;
