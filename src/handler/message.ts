@@ -11,23 +11,6 @@ import { env } from '../env';
 
 export const success = ([_, message]: StateType<any, Message>) => message.react(emoji.success);
 
-export const ignoreBot = (
-    state: StateType<boolean, Message>,
-): Promise<StateType<boolean, Message>> =>
-    new Promise((resolve, reject) => {
-        const [, message] = state;
-
-        if (message.author.id === message.client.user.id) {
-            reject(new StateError('self', message));
-            return;
-        }
-        if (message.author.bot) {
-            reject(new StateError('오빠가 너 같은 애랑 놀지 말랬어요', message));
-            return;
-        }
-        resolve(state);
-    });
-
 export const checkPrefix = F.curry(
     (prefixes: string[], state: StateType<boolean, Message>): Promise<StateType<string, Message>> =>
         new Promise(async (resolve, reject) => {
@@ -43,6 +26,21 @@ export const checkPrefix = F.curry(
             reject(new StateError('Invalid Prefix', message));
         }),
 );
+
+export const ignoreBot = (state: StateType<string, Message>): Promise<StateType<string, Message>> =>
+    new Promise((resolve, reject) => {
+        const [, message] = state;
+
+        if (message.author.id === message.client.user.id) {
+            reject(new StateError('self', message));
+            return;
+        }
+        if (message.author.bot) {
+            reject(new StateError('오빠가 너 같은 애랑 놀지 말랬어요', message));
+            return;
+        }
+        resolve(state);
+    });
 
 export const checkCommand = F.curry(
     (
