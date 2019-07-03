@@ -14,6 +14,6 @@ export const flags: IFlags = {
     reboot: {
         short: 'r',
         type: Flag.boolean,
-        default: true,
+        default: false,
     },
 };
