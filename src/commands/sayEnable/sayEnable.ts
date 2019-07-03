@@ -38,10 +38,10 @@ export const sayEnable: CommandFunc<ISayEnableCommandParseResult> = (
                         resolve();
                         return;
                     }
-                    throw new Error();
-                })
-                .catch((e) => {
                     reject(new StateError('세션 저장에 실패하였어요', message));
+                })
+                .catch((error) => {
+                    reject(new StateError(error.message, message));
                 });
             return;
         }
