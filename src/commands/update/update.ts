@@ -1,5 +1,3 @@
-import * as F from 'nodekell';
-
 import { Message } from 'discord.js';
 
 import { CommandFunc } from '..';
@@ -32,8 +30,6 @@ export const update: CommandFunc<IBaseCommandParseResult> = (
                 await message.channel.send(`빌드 하는데 ${buildTime / 1000}초 만큼 걸렸어요`);
 
                 await message.channel.send('재시작 할 거예요');
-
-                await F.sleep(1000);
 
                 process.exit(0);
             }
