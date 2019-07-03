@@ -6,7 +6,7 @@ export const spawnp = (
     c: string,
     a: string[],
     f: (data: string) => any = F.fnothing,
-): Promise<{ result: string; time: number }> =>
+): Promise<{ stdout: string; stderr: string; time: number }> =>
     new Promise((resolve, reject) => {
         const begin = Date.now();
 
@@ -36,7 +36,8 @@ export const spawnp = (
             const end = Date.now();
 
             const r = {
-                result: stderr.trim().length > 0 ? stderr : stdout,
+                stdout,
+                stderr,
                 time: end - begin,
             };
 

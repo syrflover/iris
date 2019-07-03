@@ -4,6 +4,7 @@ import { CommandFunc } from '..';
 import { IBaseCommandParseResult } from 'command-parser';
 import { spawnp } from '../../lib/spawnp';
 import { shouldUseYarn } from '../../lib/shouldUseYarn';
+import { StateError } from '../../state';
 
 export const update: CommandFunc<IBaseCommandParseResult> = (
     { content }: IBaseCommandParseResult,
@@ -13,7 +14,7 @@ export const update: CommandFunc<IBaseCommandParseResult> = (
         try {
             const f = (data: string) => message.channel.send(data);
 
-            const { result: updateLog, time: gitPullTime } = await spawnp('git', ['pull'], f);
+            const { stdout: updateLog, time: gitPullTime } = await spawnp('git', ['pull'], f);
 
             const alreadyUpToDate = 'Already up to date.' === updateLog.trim();
 
@@ -34,7 +35,16 @@ export const update: CommandFunc<IBaseCommandParseResult> = (
                     `패키지 설치하는 데 ${installTime / 1000}초 만큼 걸렸어요`,
                 );
 
-                const { time: buildTime } = await spawnp(pm, ['run', 'build'], f);
+                const { stderr: buildStderr, time: buildTime } = await spawnp(
+                    pm,
+                    ['run', 'build'],
+                    f,
+                );
+
+                if (buildStderr.length > 0) {
+                    reject(new StateError(buildStderr, message));
+                    return;
+                }
 
                 await message.channel.send(`빌드 하는 데 ${buildTime / 1000}초 만큼 걸렸어요`);
 
