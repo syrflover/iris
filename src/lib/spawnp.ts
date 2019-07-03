@@ -1,6 +1,12 @@
 import { spawn } from 'child_process';
 
-export const spawnp = (c: string, a: string[]): Promise<{ result: string; time: number }> =>
+import * as F from 'nodekell';
+
+export const spawnp = (
+    c: string,
+    a: string[],
+    f: (data: string) => any = F.fnothing,
+): Promise<{ result: string; time: number }> =>
     new Promise((resolve, reject) => {
         const begin = Date.now();
 
@@ -9,8 +15,10 @@ export const spawnp = (c: string, a: string[]): Promise<{ result: string; time: 
         let stdout = '';
         let stderr = '';
 
-        cmd.stdout.on('data', (data: Buffer) => {
-            stdout += `${data.toString()}\n`;
+        cmd.stdout.on('data', (buf: Buffer) => {
+            const data = buf.toString();
+            stdout += `${data}\n`;
+            f(data);
         });
 
         cmd.stdout.on('error', (e) => {
@@ -18,8 +26,10 @@ export const spawnp = (c: string, a: string[]): Promise<{ result: string; time: 
             reject(e);
         });
 
-        cmd.stderr.on('data', (d) => {
-            stderr += `${d.toString()}\n`;
+        cmd.stderr.on('data', (buf: Buffer) => {
+            const data = buf.toString();
+            stderr += `${data}\n`;
+            f(data);
         });
 
         cmd.on('exit', () => {
