@@ -8,6 +8,13 @@ import { CommandMap } from '../commands';
 
 import * as emoji from '../lib/emoji';
 import { env } from '../env';
+import { cutStrByLength } from '../lib/cutStrByLength';
+
+export const send = async (message: Message, str: string, option?: any) => {
+    const r = await cutStrByLength(str, 2000);
+
+    return F.forEach((e) => message.channel.send(e, option), r);
+};
 
 export const success = ([_, message]: StateType<any, Message>) => message.react(emoji.success);
 
