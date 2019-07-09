@@ -19,6 +19,7 @@ import { repl, replDescription } from './repl';
 import { sh, shDescription } from './sh';
 import { shutdown, shutdownFlags, shutdownDescription } from './shutdown';
 import { version, versionDescription } from './version';
+import { uptime, uptimeDescription } from './uptime';
 
 export type CommandFunc<C, R = any> = (commandParseResult: C, message: Message) => Promise<R>;
 
@@ -179,6 +180,15 @@ export const commandList: [string, CommandInfo][] = [
             run: version,
             flags: {},
             description: versionDescription,
+            contents: [],
+        },
+    ],
+    [
+        'uptime',
+        {
+            run: uptime,
+            flags: {},
+            description: uptimeDescription,
             contents: [],
         },
     ],
