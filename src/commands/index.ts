@@ -20,6 +20,7 @@ import { sh, shDescription } from './sh';
 import { shutdown, shutdownFlags, shutdownDescription } from './shutdown';
 import { version, versionDescription } from './version';
 import { uptime, uptimeDescription } from './uptime';
+import { image, imageDescription } from './image';
 
 export type CommandFunc<C, R = any> = (commandParseResult: C, message: Message) => Promise<R>;
 
@@ -189,6 +190,15 @@ export const commandList: [string, CommandInfo][] = [
             run: uptime,
             flags: {},
             description: uptimeDescription,
+            contents: [],
+        },
+    ],
+    [
+        'image',
+        {
+            run: image,
+            flags: {},
+            description: imageDescription,
             contents: [],
         },
     ],
