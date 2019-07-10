@@ -1,19 +1,32 @@
 import axios from 'axios';
-import { IBaseCommandParseResult } from 'command-parser';
-import { Message } from 'discord.js';
+import { Message, TextChannel } from 'discord.js';
 
 import { CommandFunc } from '..';
 import { StateError } from '../../state';
+import { IImageCommandParseResult } from './flags';
 
-export const image: CommandFunc<IBaseCommandParseResult> = (
-    { content }: IBaseCommandParseResult,
+export const image: CommandFunc<IImageCommandParseResult> = (
+    { content, nsfw }: IImageCommandParseResult,
     message: Message,
 ) =>
     new Promise(async (resolve, reject) => {
         try {
-            const img_url = await axios
-                .get('https://image.syrflover.co/random?get-url=true')
-                .then((res) => res.data);
+            const url = `https://image.syrflover.co/random?get-url=true`;
+
+            if (nsfw) {
+                if (!(message.channel as TextChannel).nsfw) {
+                    reject(new StateError('This channel is not nsfw channel', message));
+                    return;
+                }
+
+                const nsfw_img_url = await axios.get(`${url}&nsfw=true`).then((res) => res.data);
+
+                await message.channel.send(nsfw_img_url);
+                resolve();
+                return;
+            }
+
+            const img_url = await axios.get(url).then((res) => res.data);
 
             await message.channel.send(img_url);
             resolve();
