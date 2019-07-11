@@ -6,12 +6,13 @@ import { StateError } from '../../state';
 import { IImageCommandParseResult } from './flags';
 
 export const image: CommandFunc<IImageCommandParseResult> = (
-    { content, nsfw }: IImageCommandParseResult,
+    { content, nsfw, date }: IImageCommandParseResult,
     message: Message,
 ) =>
     new Promise(async (resolve, reject) => {
         try {
-            const url = `https://image.syrflover.co/random?get-url=true`;
+            const dt = date ? `&date=${date}` : '';
+            const url = `https://image.syrflover.co/random?get-url=true${dt}`;
 
             if (nsfw) {
                 if (!(message.channel as TextChannel).nsfw) {
