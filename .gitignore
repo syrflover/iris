@@ -128,3 +128,8 @@ yarn.lock
 build/
 
 forever.log
+
+id_rsa
+id_rsa.pub
+
+.env.json
