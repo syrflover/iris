@@ -1,8 +1,8 @@
 import { Message } from 'discord.js';
-import ms = require('ms');
+import { IBaseCommandParseResult } from 'command-parser';
 
 import { CommandFunc } from '../index';
-import { IBaseCommandParseResult } from 'command-parser';
+import { ms } from '../../lib/ms';
 
 export const uptime: CommandFunc<IBaseCommandParseResult> = (
     { content }: IBaseCommandParseResult,
@@ -10,7 +10,8 @@ export const uptime: CommandFunc<IBaseCommandParseResult> = (
 ): Promise<void> =>
     new Promise(async (resolve, reject) => {
         try {
-            await message.channel.send(ms(process.uptime() * 1000, { long: true }));
+            // TODO: Change Format to 1 day 1 hour 12 minutes 32 seconds
+            await message.channel.send(ms(process.uptime() * 1000));
             resolve();
         } catch (e) {
             reject(e);
