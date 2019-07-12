@@ -8,7 +8,7 @@
         "type": "voiceware",
         "params": {
             "speaker": 13,
-            "dbsize": 3
+            "dbsize": 1
         }
     },
     {
