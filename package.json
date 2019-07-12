@@ -6,7 +6,7 @@
     "scripts": {
         "start": "forever start --uid \"iris\" --append -l \"$PWD\"/forever.log build/bootstrap.js",
         "stop": "forever stop \"iris\"",
-        "test": "ts-mocha test/**/*.spec.ts",
+        "test": "ts-mocha test/**/*.test.ts",
         "dev": "NODE_ENV=development ts-node-dev src/bootstrap.ts",
         "build": "rm -rf ./build && tsc -p tsconfig.json",
         "prettier": "prettier --config ./.prettierrc --write src/**/*.ts"
