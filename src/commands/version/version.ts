@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { Message } from 'discord.js';
 
 import { CommandFunc } from '..';
@@ -11,8 +12,13 @@ export const version: CommandFunc<IBaseCommandParseResult> = (
 ) =>
     new Promise(async (resolve, reject) => {
         try {
-            const { stdout } = await spawnp('git', ['rev-parse', '--short', 'HEAD']);
-            await message.channel.send(stdout);
+            const { stdout } = await spawnp('git', ['log', '-1', '--pretty="%h|%cd"']);
+
+            const [id, dt] = stdout.replace(/"/g, '').split('|');
+
+            const date = DateTime.fromJSDate(new Date(dt)).toFormat('yyyy/LL/dd HH:mm:ss ZZZ');
+
+            await message.channel.send(`${id} | ${date}`);
             resolve();
         } catch (error) {
             reject(new StateError(error.message, message));
