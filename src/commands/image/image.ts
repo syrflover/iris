@@ -16,7 +16,7 @@ export const image: CommandFunc<IImageCommandParseResult> = (
 
             if (nsfw) {
                 if (!(message.channel as TextChannel).nsfw) {
-                    reject(new StateError('This channel is not nsfw channel', message));
+                    reject(new StateError('후방 주의 채널에서만 가능하여요', message));
                     return;
                 }
 
