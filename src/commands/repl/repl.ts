@@ -5,6 +5,7 @@ import { Message } from 'discord.js';
 import { CommandFunc } from '..';
 import { IBaseCommandParseResult } from 'command-parser';
 import { Readable, Writable } from 'stream';
+import { StateError } from '../../state';
 
 /* const writer: NodeREPL.REPLWriter = (output) => output;
 
@@ -17,10 +18,9 @@ export const repl: CommandFunc<IBaseCommandParseResult> = (
     message: Message,
 ) =>
     new Promise((resolve, reject) => {
-        // 코드 블럭(마크다운) 텍스트를 받아서 무슨 언어인지 알아낸 다음, 그 언어의 repl 툴을 돌리면 되지 않을까
-        const input = new Readable({ encoding: 'utf8', read() {} });
+        const input = new Readable({ encoding: 'utf8', read() {} }); // tslint:disable-line: no-empty
         // input.push(content);
-        const output = new Writable({ defaultEncoding: 'utf8', write() {} });
+        const output = new Writable({ defaultEncoding: 'utf8', write() {} }); // tslint:disable-line: no-empty
 
         const nodeREPL = NodeREPL.start({
             replMode: NodeREPL.REPL_MODE_STRICT,
@@ -40,7 +40,7 @@ export const repl: CommandFunc<IBaseCommandParseResult> = (
 
                 resolve();
             } catch (error) {
-                reject(error);
+                reject(new StateError(error.message, message));
             }
         });
 

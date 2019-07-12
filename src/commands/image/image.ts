@@ -8,7 +8,7 @@ import { IImageCommandParseResult } from './flags';
 export const image: CommandFunc<IImageCommandParseResult> = (
     { content, nsfw, date }: IImageCommandParseResult,
     message: Message,
-) =>
+): Promise<void> =>
     new Promise(async (resolve, reject) => {
         try {
             const dt = date ? `&date=${date}` : '';

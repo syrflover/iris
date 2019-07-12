@@ -4,6 +4,7 @@ import { Message } from 'discord.js';
 
 import { CommandFunc } from '..';
 import { IBaseCommandParseResult } from 'command-parser';
+import { StateError } from '../../state';
 
 export const host: CommandFunc<IBaseCommandParseResult, string> = (
     { content }: IBaseCommandParseResult,
@@ -15,6 +16,6 @@ export const host: CommandFunc<IBaseCommandParseResult, string> = (
             await message.channel.send(hostname);
             resolve(hostname);
         } catch (error) {
-            reject(error);
+            reject(new StateError(error.message, message));
         }
     });

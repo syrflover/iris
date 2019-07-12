@@ -53,6 +53,6 @@ export const update: CommandFunc<IBaseCommandParseResult> = (
                 process.exit(0);
             }
         } catch (error) {
-            reject(error);
+            reject(new StateError(error.message, message));
         }
     });
