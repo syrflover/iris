@@ -37,5 +37,5 @@ export const ms = (milliseconds: number) => {
         mt -= t;
     }
 
-    return `${result.trim()} ${mt > 0 ? `${mt} milliseconds` : ''}`.trim();
+    return `${result.trim()} ${mt > 0 ? `${mt} millisecond${mt > 1 ? 's' : ''}` : ''}`.trim();
 };

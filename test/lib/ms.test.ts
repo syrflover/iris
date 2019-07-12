@@ -3,6 +3,12 @@ import { assert } from 'chai';
 import { ms, DAY, HOUR, MINUTE, SECOND } from '../../src/lib/ms';
 
 describe('test src/lib/ms.ts', () => {
+    it('day hour minute second millisecond', () => {
+        const r = ms(DAY + HOUR + MINUTE + SECOND + 720);
+
+        assert.strictEqual(r, '1 day 1 hour 1 minute 1 second 720 milliseconds');
+    });
+
     it('day / days, no milliseconds', () => {
         const r0 = ms(DAY);
         const r1 = ms(DAY * 2);
