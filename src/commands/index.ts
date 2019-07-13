@@ -1,8 +1,6 @@
-import * as F from 'nodekell';
-
 import { Message } from 'discord.js';
 
-import { IFlags, IBaseCommandParseResult } from 'command-parser';
+import { IFlags } from 'command-parser';
 
 import { uwu, uwuDescription } from './uwu';
 import { state, stateDescription, stateFlags } from './state';
@@ -15,7 +13,7 @@ import { help, helpDescription } from './help';
 import { random, randomDescription } from './random';
 import { update, updateDescription } from './update';
 import { host, hostDescription } from './host';
-import { repl, replDescription } from './repl';
+import { node, nodeDescription } from './node';
 import { sh, shDescription } from './sh';
 import { shutdown, shutdownFlags, shutdownDescription } from './shutdown';
 import { version, versionDescription } from './version';
@@ -145,11 +143,11 @@ export const commandList: [string, CommandInfo][] = [
         },
     ],
     [
-        'repl',
+        'node',
         {
-            run: repl,
+            run: node,
             flags: {},
-            description: replDescription,
+            description: nodeDescription,
             contents: [{ optional: false, name: 'code' }],
             owner: true,
         },

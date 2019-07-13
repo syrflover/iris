@@ -13,7 +13,7 @@ const eval: NodeREPL.REPLEval = (evalCmd, context, file, cb) => {
     cb()
 }  */
 
-export const repl: CommandFunc<IBaseCommandParseResult> = (
+export const node: CommandFunc<IBaseCommandParseResult> = (
     { content }: IBaseCommandParseResult,
     message: Message,
 ) =>
