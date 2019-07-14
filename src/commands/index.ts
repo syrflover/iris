@@ -19,6 +19,7 @@ import { shutdown, shutdownFlags, shutdownDescription } from './shutdown';
 import { version, versionDescription } from './version';
 import { uptime, uptimeDescription } from './uptime';
 import { image, imageDescription, imageFlags } from './image';
+import { ping } from './ping';
 
 export type CommandFunc<C, R = any> = (commandParseResult: C, message: Message) => Promise<R>;
 
@@ -198,6 +199,15 @@ export const commandList: [string, CommandInfo][] = [
             flags: imageFlags,
             description: imageDescription,
             contents: [],
+        },
+    ],
+    [
+        'ping',
+        {
+            run: ping,
+            flags: {},
+            description: '',
+            contents: [{ optional: false, name: 'url' }],
         },
     ],
 ];
