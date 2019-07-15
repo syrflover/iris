@@ -31,7 +31,7 @@
         "typescript": "^3.5.2"
     },
     "dependencies": {
-        "@syrflover/command-parser": "^0.0.1",
+        "@syrflover/command-parser": "^0.0.2",
         "@syrflover/simple-store": "^0.0.10",
         "axios": "^0.19.0",
         "discord.js": "^11.5.1",
