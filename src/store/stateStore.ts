@@ -1,5 +1,5 @@
 import { ActivityType } from 'discord.js';
-import { createStore } from 'simply-store';
+import { createStore } from '@syrflover/simple-store';
 
 export interface IStateStore {
     name: string;

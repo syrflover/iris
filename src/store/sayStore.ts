@@ -1,4 +1,4 @@
-import { createStore } from 'simply-store';
+import { createStore } from '@syrflover/simple-store';
 
 export interface ISayStore {
     [userid: string]: {

@@ -3,7 +3,7 @@ import { env } from './env';
 import { paths } from './lib/resolvePath';
 import { sayStore } from './store/sayStore';
 import { stateStore } from './store/stateStore';
-import { mkdirp } from 'simply-store/build/lib/fs';
+import { mkdirp } from '@syrflover/simple-store/build/lib/fs';
 
 const bootstrap = async () => {
     try {
