@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 
 import { CommandFunc } from '../index';
-import { IBaseCommandParseResult } from 'command-parser';
+import { IBaseCommandParseResult } from '@syrflover/command-parser';
 import { StateError } from '../../state';
 
 export const uwu: CommandFunc<IBaseCommandParseResult, string> = (

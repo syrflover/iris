@@ -3,7 +3,7 @@ import * as NodeREPL from 'repl';
 import { Message } from 'discord.js';
 
 import { CommandFunc } from '..';
-import { IBaseCommandParseResult } from 'command-parser';
+import { IBaseCommandParseResult } from '@syrflover/command-parser';
 import { Readable, Writable } from 'stream';
 import { StateError } from '../../state';
 

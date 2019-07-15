@@ -1,6 +1,6 @@
 import { Message } from 'discord.js';
 
-import { IFlags } from 'command-parser';
+import { IFlags } from '@syrflover/command-parser';
 
 import { uwu, uwuDescription } from './uwu';
 import { state, stateDescription, stateFlags } from './state';

@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 
 import { CommandFunc } from '..';
-import { IBaseCommandParseResult } from 'command-parser';
+import { IBaseCommandParseResult } from '@syrflover/command-parser';
 import { spawnp } from '../../lib/spawnp';
 import { shouldUseYarn } from '../../lib/shouldUseYarn';
 import { StateError } from '../../state';

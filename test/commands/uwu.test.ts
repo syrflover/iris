@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import { uwu } from '../../src/commands/uwu';
 import { Message } from '../Message';
-import { commandParser } from 'command-parser';
+import { commandParser } from '@syrflover/command-parser';
 
 describe('test command uwu', () => {
     it('result', async () => {

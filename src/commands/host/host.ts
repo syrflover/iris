@@ -3,7 +3,7 @@ import * as os from 'os';
 import { Message } from 'discord.js';
 
 import { CommandFunc } from '..';
-import { IBaseCommandParseResult } from 'command-parser';
+import { IBaseCommandParseResult } from '@syrflover/command-parser';
 import { StateError } from '../../state';
 
 export const host: CommandFunc<IBaseCommandParseResult, string> = (

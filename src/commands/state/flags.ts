@@ -1,4 +1,4 @@
-import { IFlags, Flag, IBaseCommandParseResult } from 'command-parser';
+import { IFlags, Flag, IBaseCommandParseResult } from '@syrflover/command-parser';
 
 export interface IStateCommandParseResult extends IBaseCommandParseResult {
     type: string;

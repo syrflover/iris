@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { IBaseCommandParseResult } from 'command-parser';
+import { IBaseCommandParseResult } from '@syrflover/command-parser';
 
 import { CommandFunc } from '../index';
 import { ms } from '../../lib/ms';

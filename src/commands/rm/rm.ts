@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 
 import { CommandFunc } from '../index';
 import { StateError } from '../../state';
-import { IBaseCommandParseResult } from 'command-parser';
+import { IBaseCommandParseResult } from '@syrflover/command-parser';
 
 export const rm: CommandFunc<IBaseCommandParseResult> = (
     { content }: IBaseCommandParseResult,
