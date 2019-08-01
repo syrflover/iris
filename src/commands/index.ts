@@ -65,7 +65,7 @@ export const commandList: [string, CommandInfo][] = [
             run: state,
             flags: stateFlags,
             description: stateDescription,
-            contents: [{ optional: true, name: 'mode' }, { optional: false, name: 'name' }],
+            contents: [{ optional: false, name: 'name' }],
             owner: true,
         },
     ],
