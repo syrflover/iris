@@ -15,6 +15,7 @@ export interface IEnv {
     SSH_USER_IP: string;
     SSH_PORT: string;
     SSH_KEY_PATH: string;
+    PING_NOTIFICATION_CHANNEL_ID: string;
     PING_SERVERS: IPingServerConfiguration[];
 }
 
