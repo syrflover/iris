@@ -1,4 +1,5 @@
 import * as F from 'nodekell';
+import * as _ from 'lodash/fp';
 
 import * as Discord from 'discord.js';
 
@@ -14,6 +15,8 @@ import {
 } from './handler/message';
 import { alwaysSay } from './lib/alwaysSay';
 import { env } from './env';
+import { healthcheck } from './healthcheck';
+import { stringifyJSON } from '@syrflover/simple-store';
 
 export const client = new Discord.Client();
 
@@ -25,20 +28,24 @@ client.once('error', (error) => {
     process.exit(1);
 });
 
-client.once('ready', () => {
+client.once('ready', async () => {
     console.info('ready');
 
-    /* let count = 0;
+    const channel = client.channels.get(env.PING_NOTIFICATION_CHANNEL_ID) as Discord.TextChannel;
 
-    F.interval(5000, () => {
-        if (count > prefixes.length - 1) {
-            count = 0;
-        }
+    // healthcheck
+    F.interval(60e3, async () => {
+        const isSuccess = (status_code: number) =>
+            [200, 201, 202, 203, 204, 205, 206, 207, 208].includes(status_code);
 
-        const pf = prefixes[count++];
-
-        client.user.setPresence({ game: { name: `${pf}help`, type: 'PLAYING' } });
-    }); */
+        // send message on occurs error
+        F.run(
+            healthcheck(env.PING_SERVERS),
+            _.filter((r) => !!r.error || !isSuccess(r.response ? r.response.status_code : 0)),
+            F.then((r) => (r.length > 0 ? stringifyJSON(r, undefined, 4) : '')),
+            F.then((r) => r.length > 0 && !!channel.send(`\`\`\`json\n${r}\`\`\``)),
+        );
+    });
 });
 
 client.on('message', (message) => {

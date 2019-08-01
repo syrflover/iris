@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-interface IRequestResult {
+export interface IRequestResult {
     url: string;
     latency: number;
     begin: number;
@@ -14,3 +14,6 @@ interface IRequestResult {
 
 export const request = (urls: string[]) =>
     axios.post<IRequestResult[]>('https://request.syrflover.co', urls).then((res) => res.data);
+
+// request.json
+//
