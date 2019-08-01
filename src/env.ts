@@ -1,6 +1,13 @@
 import * as fs from 'fs';
 
+export interface IPingServerConfiguration {
+    name: string;
+    url: string;
+    time: number;
+}
+
 export interface IEnv {
+    [key: string]: any;
     NODE_ENV: string;
     DISCORD_TOKEN: string;
     OWNER_ID: string;
@@ -8,13 +15,17 @@ export interface IEnv {
     SSH_USER_IP: string;
     SSH_PORT: string;
     SSH_KEY_PATH: string;
+    PING_SERVERS: IPingServerConfiguration[];
 }
 
 const getEnv = () => {
     const e = fs.readFileSync('./.env.json', { encoding: 'utf8' });
     const parsed = JSON.parse(e);
 
-    return parsed as IEnv;
+    return {
+        ...process.env,
+        ...parsed,
+    };
 };
 
-export const env = getEnv();
+export const env = getEnv() as IEnv;
