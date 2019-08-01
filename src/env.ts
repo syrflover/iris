@@ -3,7 +3,6 @@ import * as fs from 'fs';
 export interface IPingServerConfiguration {
     name: string;
     url: string;
-    time: number;
 }
 
 export interface IEnv {
