@@ -9,7 +9,7 @@ export interface IEnv {
     [key: string]: any;
     NODE_ENV: string;
     DISCORD_TOKEN: string;
-    OWNER_ID: string;
+    OWNERS: string[];
     USE_SSH_IN_SH: boolean;
     SSH_USER_IP: string;
     SSH_PORT: string;

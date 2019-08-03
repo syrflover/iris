@@ -61,7 +61,7 @@ export const checkCommand = F.curry(
             const command = commandMap.get(inputCommand);
 
             if (command) {
-                if (command.owner && message.author.id !== env.OWNER_ID) {
+                if (command.owner && !env.OWNERS.includes(message.author.id)) {
                     reject(
                         new StateError(
                             '해당 명령어는 저의 오빠 또는 허가받은 사람만 사용할 수 있어요',
