@@ -7,7 +7,8 @@ export interface IRequestResult {
     response?: {
         headers: { [index: string]: string };
         status_code: number;
-        method: string;
+        // method: string;
+        data: any;
     };
     error?: string;
 }
