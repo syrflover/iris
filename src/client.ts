@@ -17,6 +17,7 @@ import { alwaysSay } from './lib/alwaysSay';
 import { env } from './env';
 import { healthcheck } from './healthcheck';
 import { stringifyJSON } from '@syrflover/simple-store';
+import { stateStore } from './store/stateStore';
 
 export const client = new Discord.Client();
 
@@ -31,7 +32,16 @@ client.once('error', (error) => {
 client.once('ready', async () => {
     console.info('ready');
 
-    const channel = client.channels.get(env.PING_NOTIFICATION_CHANNEL_ID) as Discord.TextChannel;
+    // sync state
+    const { name, type } = await stateStore.read();
+    await client.user.setPresence({
+        game: {
+            name,
+            type,
+        },
+    });
+
+    /* const channel = client.channels.get(env.PING_NOTIFICATION_CHANNEL_ID) as Discord.TextChannel;
 
     // healthcheck
     F.interval(60e3, async () => {
@@ -45,7 +55,7 @@ client.once('ready', async () => {
             F.then((r) => (r.length > 0 ? stringifyJSON(r, undefined, 4) : '')),
             F.then((r) => r.length > 0 && !!channel.send(`\`\`\`json\n${r}\`\`\``)),
         );
-    });
+    }); */
 });
 
 client.on('message', (message) => {

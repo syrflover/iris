@@ -18,15 +18,6 @@ const bootstrap = async () => {
 
         // connect discord gateway
         await client.login(env.DISCORD_TOKEN);
-
-        // sync state
-        const { name, type } = await stateStore.read();
-        await client.user.setPresence({
-            game: {
-                name,
-                type,
-            },
-        });
     } catch (error) {
         console.error(error);
 
