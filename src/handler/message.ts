@@ -9,6 +9,7 @@ import { CommandMap } from '../commands';
 import * as emoji from '../lib/emoji';
 import { env } from '../env';
 import { cutStrByLength } from '../lib/cutStrByLength';
+import { logger } from '../logger';
 
 export const send = async (message: Message, str: string, option?: any) => {
     const r = await cutStrByLength(str, 2000);
@@ -111,6 +112,7 @@ export const catcher = async (error: any) => {
             return;
         }
         if (error.message !== 'Invalid Prefix') {
+            logger.error(error);
             message.react(emoji.fail);
             await message.reply('에러가 발생하였어요');
             await message.reply(error.message);
@@ -118,5 +120,5 @@ export const catcher = async (error: any) => {
         }
         return;
     }
-    console.error(error);
+    logger.error(error);
 };
