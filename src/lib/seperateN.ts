@@ -34,6 +34,6 @@ export const seperateN = async function* (
 
 /* (async () => {
     for await (const e of seperateN(230, 99)) {
-        console.log(e);
+        logger.debug(e);
     }
 })(); */

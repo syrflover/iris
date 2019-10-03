@@ -15,19 +15,20 @@ import {
 import { alwaysSay } from './lib/alwaysSay';
 import { env } from './env';
 import { stateStore } from './store/stateStore';
+import { logger } from './logger';
 
 export const client = new Discord.Client();
 
 const prefixes = env.NODE_ENV === 'development' ? ['< ', 'illya.'] : ['> ', 'iris.'];
 
 client.once('error', (error) => {
-    console.error(error);
+    logger.error(error);
 
     process.exit(1);
 });
 
 client.once('ready', async () => {
-    console.info('ready');
+    logger.info('ready');
 
     // sync state
     const { name, type } = await stateStore.read();
@@ -60,7 +61,7 @@ client.on('message', (message) => {
 
     F.run(
         message,
-        // F.tap((m) => console.log(m.content)),
+        // F.tap((m) => logger.debug(m.content)),
         toState(true),
         checkPrefix(prefixes),
         ignoreBot,

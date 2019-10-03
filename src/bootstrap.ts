@@ -4,6 +4,7 @@ import { paths } from './lib/resolvePath';
 import { sayStore } from './store/sayStore';
 import { stateStore } from './store/stateStore';
 import { mkdirp } from '@syrflover/simple-store/build/lib/fs';
+import { logger } from './logger';
 
 const bootstrap = async () => {
     try {
@@ -19,7 +20,7 @@ const bootstrap = async () => {
         // connect discord gateway
         await client.login(env.DISCORD_TOKEN);
     } catch (error) {
-        console.error(error);
+        logger.error(error);
 
         process.exit(1);
     }
