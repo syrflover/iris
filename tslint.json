@@ -12,7 +12,7 @@
         "member-ordering": false,
         "interface-over-type-literal": false,
         "array-type": false,
-        "no-console": false,
+        "no-console": true,
         "max-line-length": false,
         "align": false,
         "one-line": false,
