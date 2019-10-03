@@ -100,19 +100,20 @@ export const runCommand = (
             .catch((error) => reject(new StateError(error.message, message)));
     });
 
-export const catcher = (error: any) => {
+export const catcher = async (error: any) => {
     if (error instanceof StateError) {
         const message = error.dm;
         if (error.message === 'self') {
             return;
         }
         if (error.message === 'Ignore regexp test') {
-            message.react(emoji.fail);
+            await message.react(emoji.fail);
             return;
         }
         if (error.message !== 'Invalid Prefix') {
             message.react(emoji.fail);
-            message.reply(error.message);
+            await message.reply('에러가 발생하였어요');
+            await message.reply(error.message);
             return;
         }
         return;
