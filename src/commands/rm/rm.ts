@@ -13,7 +13,7 @@ const removeMessages = F.curry(async (message: Message, removeAmount: number) =>
         })
         .then((msgs) => msgs.filter((msg) => msg.id !== message.id));
 
-    await message.channel.bulkDelete(messages);
+    await message.channel.bulkDelete(messages, true);
 });
 
 export const rm: CommandFunc<IBaseCommandParseResult> = (
@@ -35,9 +35,9 @@ export const rm: CommandFunc<IBaseCommandParseResult> = (
         }
 
         try {
-            const seperatedBy99 = seperateN(removeAmount, 99);
-
-            await F.forEach(removeMessages(message), seperatedBy99);
+            for await (const x of seperateN(removeAmount, 99)) {
+                await removeMessages(message, x);
+            }
 
             resolve();
         } catch (error) {

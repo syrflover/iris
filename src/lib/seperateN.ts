@@ -17,7 +17,7 @@ export const seperateN = async function* (
     if (notOverN) {
         yield* [...r, xs];
     } else {
-        yield* seperateN(xs - n, n, [...r, 99]);
+        yield* seperateN(xs - n, n, [...r, n]);
     }
 };
 
