@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import { IBaseCommandParseResult } from '@syrflover/command-parser';
 import { Message } from 'discord.js';
 

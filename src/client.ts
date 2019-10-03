@@ -1,5 +1,4 @@
 import * as F from 'nodekell';
-import * as _ from 'lodash/fp';
 
 import * as Discord from 'discord.js';
 
@@ -15,8 +14,6 @@ import {
 } from './handler/message';
 import { alwaysSay } from './lib/alwaysSay';
 import { env } from './env';
-import { healthcheck } from './healthcheck';
-import { stringifyJSON } from '@syrflover/simple-store';
 import { stateStore } from './store/stateStore';
 
 export const client = new Discord.Client();
