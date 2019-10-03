@@ -12,7 +12,7 @@ export const rm: CommandFunc<IBaseCommandParseResult> = (
         const removeAmount = parseInt(content, 10);
 
         if (isNaN(removeAmount)) {
-            reject(new StateError('인자는 정수 여야해요', message));
+            reject(new StateError('인자는 정수가 되어야 하여요', message));
             return;
         }
 
