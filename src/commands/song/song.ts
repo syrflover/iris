@@ -42,30 +42,30 @@ export const song: CommandFunc<IBaseCommandParseResult, void> = (
 
             dispatcher?.setVolume(0.08);
 
-            awaitMessage(prefixes, message.channel, (awaitedMessage: Message) => {
+            awaitMessage(prefixes, message, (awaitedMessage: Message) => {
                 if (message.member?.voice.channelID === connenction?.voice.channelID) {
                     switch (awaitedMessage.content) {
                         case `play`:
                         case `start`:
                         case `resume`:
                             dispatcher?.resume();
-                            break;
+                            return { stop: false };
                         case `pause`:
                             dispatcher?.pause();
-                            break;
+                            return { stop: false };
                         case `stop`:
                         case `close`:
                         case `end`:
                             dispatcher?.end();
-                            break;
+                            return { stop: true };
                     }
                 }
 
                 if (dispatcher) {
-                    return true;
+                    return { stop: false };
                 }
 
-                return false;
+                return { stop: true };
             });
 
             resolve();
