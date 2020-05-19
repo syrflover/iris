@@ -9,14 +9,14 @@ export const leave: CommandFunc<ILeaveCommandParseResult> = (
 ): Promise<void> =>
     new Promise((resolve, reject) => {
         if (all) {
-            message.client.voiceConnections.forEach((connection) => {
+            message.client.voice?.connections.forEach((connection) => {
                 connection.channel.leave();
             });
 
             process.nextTick(() => resolve());
             return;
         }
-        const voiceChannel = message.member.voiceChannel;
+        const voiceChannel = message.member?.voice.channel;
 
         if (voiceChannel) {
             try {

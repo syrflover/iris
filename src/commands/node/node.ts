@@ -20,7 +20,7 @@ export const node: CommandFunc<IBaseCommandParseResult> = (
     new Promise((resolve, reject) => {
         const input = new Readable({ encoding: 'utf8', read() {} }); // tslint:disable-line: no-empty
         // input.push(content);
-        const output = new Writable({ defaultEncoding: 'utf8', write() {} }); // tslint:disable-line: no-empty
+        const output = new Writable({ defaultencoding: 'utf8', write() {} }); // tslint:disable-line: no-empty
 
         const nodeREPL = NodeREPL.start({
             replMode: NodeREPL.REPL_MODE_STRICT,

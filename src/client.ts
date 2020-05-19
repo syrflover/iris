@@ -19,7 +19,7 @@ import { logger } from './logger';
 
 export const client = new Discord.Client();
 
-const prefixes = env.NODE_ENV === 'development' ? ['< ', 'illya.'] : ['> ', 'iris.'];
+export const prefixes = env.NODE_ENV === 'development' ? ['< ', 'illya.'] : ['> ', 'iris.'];
 
 client.once('error', (error) => {
     logger.error(error);
@@ -32,8 +32,8 @@ client.once('ready', async () => {
 
     // sync state
     const { name, type } = await stateStore.read();
-    await client.user.setPresence({
-        game: {
+    await client.user?.setPresence({
+        activity: {
             name,
             type,
         },

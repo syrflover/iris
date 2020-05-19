@@ -1,3 +1,5 @@
+import '@syrflover/iterator/dist/types/global';
+
 import { client } from './client';
 import { env } from './env';
 import { paths } from './lib/resolvePath';

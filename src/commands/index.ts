@@ -18,8 +18,9 @@ import { sh, shDescription } from './sh';
 import { shutdown, shutdownFlags, shutdownDescription } from './shutdown';
 import { version, versionDescription } from './version';
 import { uptime, uptimeDescription } from './uptime';
-import { image, imageDescription, imageFlags } from './image';
-import { ping, pingDescription } from './ping';
+// import { image, imageDescription, imageFlags } from './image';
+// import { ping, pingDescription } from './ping';
+import { song } from './song';
 
 export type CommandFunc<C, R = any> = (commandParseResult: C, message: Message) => Promise<R>;
 
@@ -120,7 +121,10 @@ export const commandList: [string, CommandInfo][] = [
             run: random,
             flags: {},
             description: randomDescription,
-            contents: [{ optional: true, name: 'beginOrEnd' }, { optional: true, name: 'end' }],
+            contents: [
+                { optional: true, name: 'beginOrEnd' },
+                { optional: true, name: 'end' },
+            ],
         },
     ],
     [
@@ -192,7 +196,7 @@ export const commandList: [string, CommandInfo][] = [
             contents: [],
         },
     ],
-    [
+    /* [
         'image',
         {
             run: image,
@@ -200,14 +204,23 @@ export const commandList: [string, CommandInfo][] = [
             description: imageDescription,
             contents: [],
         },
-    ],
-    [
+    ], */
+    /* [
         'ping',
         {
             run: ping,
             flags: {},
             description: pingDescription,
             contents: [{ optional: false, name: 'url' }],
+        },
+    ], */
+    [
+        'song',
+        {
+            run: song,
+            flags: {},
+            description: '',
+            contents: [{ optional: false, name: 'song_url' }],
         },
     ],
 ];

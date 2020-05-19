@@ -13,7 +13,7 @@ export const sayEnable: CommandFunc<ISayEnableCommandParseResult> = (
     message: Message,
 ): Promise<void> =>
     new Promise(async (resolve, reject) => {
-        const voiceChannel = message.member.voiceChannel;
+        const voiceChannel = message.member?.voice.channel;
 
         if (voiceChannel) {
             const voices = await import('../../voices.json');
@@ -28,7 +28,7 @@ export const sayEnable: CommandFunc<ISayEnableCommandParseResult> = (
                 .write({
                     ...sayData,
                     [userid]: {
-                        voiceChannelID: message.member.voiceChannel.id,
+                        voiceChannelID: message.member?.voice.channelID!,
                         expire: Date.now() + 3600 * 1000,
                         mode: `--name ${voice!.name} --effect ${effect}`,
                     },

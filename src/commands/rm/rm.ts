@@ -7,8 +7,8 @@ import { IBaseCommandParseResult } from '@syrflover/command-parser';
 import { seperateN } from '../../lib/seperateN';
 
 const removeMessages = F.curry(async (message: Message, removeAmount: number) => {
-    const messages = await message.channel
-        .fetchMessages({
+    const messages = await message.channel.messages
+        .fetch({
             limit: removeAmount + 1,
         })
         .then((msgs) => msgs.filter((msg) => msg.id !== message.id));

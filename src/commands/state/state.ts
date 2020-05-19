@@ -46,8 +46,8 @@ export const state: CommandFunc<IStateCommandParseResult> = (
         const activityType = toActivityType(type);
 
         try {
-            await message.client.user.setPresence({
-                game: {
+            await message.client.user?.setPresence({
+                activity: {
                     name: content,
                     type: activityType,
                     url: 'https://syrflover.co',

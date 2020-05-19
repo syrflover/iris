@@ -13,7 +13,7 @@ export const alwaysSay = (prefixes: string[], message: Message): Promise<void> =
         const userid = message.author.id;
         const sayData = await sayStore.read();
         const saySession = sayData[userid];
-        const voiceChannel = message.member.voiceChannel;
+        const voiceChannel = message.member?.voice.channel;
 
         const hasPrefix = await F.some((pf) => message.content.startsWith(pf), prefixes);
 

@@ -39,7 +39,7 @@ export const ignoreBot = (state: StateType<string, Message>): Promise<StateType<
     new Promise((resolve, reject) => {
         const [, message] = state;
 
-        if (message.author.id === message.client.user.id) {
+        if (message.author.id === message.client.user?.id) {
             reject(new StateError('self', message));
             return;
         }
@@ -104,6 +104,9 @@ export const runCommand = (
 export const catcher = async (error: any) => {
     if (error instanceof StateError) {
         const message = error.dm;
+        if (error.message === '해당 명령어를 찾을 수 없어요') {
+            return;
+        }
         if (error.message === 'self') {
             return;
         }

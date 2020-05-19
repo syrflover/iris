@@ -29,7 +29,7 @@ export const say: CommandFunc<ISayCommandParseResult> = (
     message: Message,
 ): Promise<void> =>
     new Promise(async (resolve, reject) => {
-        if (!message.member.voiceChannel) {
+        if (!message.member?.voice.channel) {
             reject(new StateError('음성 채널에 입장하여 주세요', message));
             return;
         }
@@ -52,7 +52,7 @@ export const say: CommandFunc<ISayCommandParseResult> = (
             return;
         }
 
-        const connection = await message.member.voiceChannel.join();
+        const connection = await message.member.voice.channel.join();
 
         let dispatcher: StreamDispatcher;
 
@@ -64,7 +64,7 @@ export const say: CommandFunc<ISayCommandParseResult> = (
                     autoClose: true,
                 }); */
 
-                dispatcher = connection.playFile(sayFile, {
+                dispatcher = connection.play(sayFile, {
                     volume: 0.7,
                 });
                 break;
@@ -78,7 +78,7 @@ export const say: CommandFunc<ISayCommandParseResult> = (
                     dbsize,
                 });
 
-                dispatcher = connection.playArbitraryInput(sayURL, {
+                dispatcher = connection.play(sayURL, {
                     volume: 0.7,
                 });
                 break;
