@@ -18,6 +18,7 @@ import { prefixes } from '../../client';
 import { awaitMessage } from '../../lib/awaitMessage';
 import { success } from '../../handler/message';
 import { stateStore } from '../../store/stateStore';
+import { deferred } from '../../lib/deferred';
 
 const sc = new SC(env.SOUNDCLOUD_CLIENT_ID);
 
@@ -43,6 +44,41 @@ export const song: CommandFunc<IBaseCommandParseResult, void> = (
 
             let dispatcher = connenction?.play(stream);
 
+            let _: Promise<void> | undefined = awaitMessage(
+                prefixes,
+                message,
+                async (awaitedMessage: Message) => {
+                    if (!dispatcher) {
+                        return { stop: true };
+                    }
+
+                    const succ = () => success([, awaitedMessage, '']);
+
+                    if (message.member?.voice.channelID === connenction?.voice.channelID) {
+                        switch (awaitedMessage.content) {
+                            case `play`:
+                            case `start`:
+                            case `resume`:
+                                dispatcher?.resume();
+                                await succ();
+                                return { stop: false };
+                            case `pause`:
+                                dispatcher?.pause();
+                                await succ();
+                                return { stop: false };
+                            case `stop`:
+                            case `close`:
+                            case `end`:
+                                dispatcher?.end();
+                                await succ();
+                                return { stop: true };
+                        }
+                    }
+
+                    return { stop: false };
+                },
+            );
+
             dispatcher?.on('start', async () => {
                 await message.client.user?.setPresence({
                     activity: {
@@ -55,6 +91,7 @@ export const song: CommandFunc<IBaseCommandParseResult, void> = (
 
             dispatcher?.on('close', async () => {
                 dispatcher = undefined;
+                _ = undefined;
 
                 const { name, type } = await stateStore.read();
                 await message.client.user?.setPresence({
@@ -66,37 +103,6 @@ export const song: CommandFunc<IBaseCommandParseResult, void> = (
             });
 
             dispatcher?.setVolume(0.08);
-
-            awaitMessage(prefixes, message, async (awaitedMessage: Message) => {
-                if (!dispatcher) {
-                    return { stop: true };
-                }
-
-                const succ = () => success([, awaitedMessage, '']);
-
-                if (message.member?.voice.channelID === connenction?.voice.channelID) {
-                    switch (awaitedMessage.content) {
-                        case `play`:
-                        case `start`:
-                        case `resume`:
-                            dispatcher?.resume();
-                            await succ();
-                            return { stop: false };
-                        case `pause`:
-                            dispatcher?.pause();
-                            await succ();
-                            return { stop: false };
-                        case `stop`:
-                        case `close`:
-                        case `end`:
-                            dispatcher?.end();
-                            await succ();
-                            return { stop: true };
-                    }
-                }
-
-                return { stop: false };
-            });
 
             resolve();
         } catch (error) {
