@@ -11,10 +11,13 @@ import {
     streamHeaderSC,
     streamSegmentsSC,
     streamSC,
+    trackSC,
 } from '../../lib/soundcloud';
 import { env } from '../../env';
 import { prefixes } from '../../client';
 import { awaitMessage } from '../../lib/awaitMessage';
+import { success } from '../../handler/message';
+import { stateStore } from '../../store/stateStore';
 
 const sc = new SC(env.SOUNDCLOUD_CLIENT_ID);
 
@@ -24,8 +27,12 @@ export const song: CommandFunc<IBaseCommandParseResult, void> = (
 ): Promise<void> =>
     new Promise(async (resolve, reject) => {
         try {
+            const scTrack = await trackSC(sc, content);
+
+            const { title, permalink_url } = scTrack;
+
             const stream = await $(
-                content,
+                scTrack,
                 streamHeaderURLSC(sc),
                 streamHeaderSC(sc),
                 streamSegmentsSC,
@@ -36,36 +43,59 @@ export const song: CommandFunc<IBaseCommandParseResult, void> = (
 
             let dispatcher = connenction?.play(stream);
 
-            dispatcher?.on('close', () => {
+            dispatcher?.on('start', async () => {
+                await message.client.user?.setPresence({
+                    activity: {
+                        name: `${title}`,
+                        type: 'LISTENING',
+                        url: permalink_url,
+                    },
+                });
+            });
+
+            dispatcher?.on('close', async () => {
                 dispatcher = undefined;
+
+                const { name, type } = await stateStore.read();
+                await message.client.user?.setPresence({
+                    activity: {
+                        name,
+                        type,
+                    },
+                });
             });
 
             dispatcher?.setVolume(0.08);
 
-            awaitMessage(prefixes, message, (awaitedMessage: Message) => {
+            awaitMessage(prefixes, message, async (awaitedMessage: Message) => {
+                if (!dispatcher) {
+                    return { stop: true };
+                }
+
+                const succ = () => success([, awaitedMessage, '']);
+
                 if (message.member?.voice.channelID === connenction?.voice.channelID) {
                     switch (awaitedMessage.content) {
                         case `play`:
                         case `start`:
                         case `resume`:
                             dispatcher?.resume();
+                            await succ();
                             return { stop: false };
                         case `pause`:
                             dispatcher?.pause();
+                            await succ();
                             return { stop: false };
                         case `stop`:
                         case `close`:
                         case `end`:
                             dispatcher?.end();
+                            await succ();
                             return { stop: true };
                     }
                 }
 
-                if (dispatcher) {
-                    return { stop: false };
-                }
-
-                return { stop: true };
+                return { stop: false };
             });
 
             resolve();

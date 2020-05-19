@@ -16,6 +16,8 @@ import { alwaysSay } from './lib/alwaysSay';
 import { env } from './env';
 import { stateStore } from './store/stateStore';
 import { logger } from './logger';
+import { messageIterator } from './lib/messageIterator';
+import { iterator } from '@syrflover/iterator';
 
 export const client = new Discord.Client();
 

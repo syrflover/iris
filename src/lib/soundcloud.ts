@@ -150,10 +150,12 @@ export interface SCTrack {
     playback_count: number;
 }
 
-export const streamHeaderURLSC = curry(async (sc: SC, scURL: string) => {
-    const track = ((await sc.tracks.getURL(scURL)) as unknown) as SCTrack;
+export const trackSC = curry(
+    (sc: SC, scURL: string) => (sc.tracks.getURL(scURL) as unknown) as Promise<SCTrack>,
+);
 
-    const { url: streamURL } = (await track.media.transcodings
+export const streamHeaderURLSC = curry(async (sc: SC, scTrack: SCTrack) => {
+    const { url: streamURL } = (await scTrack.media.transcodings
         .iter()
         .find((transcoding) => transcoding.format.protocol === 'hls')) as SCTranscoding;
 
