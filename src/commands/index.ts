@@ -20,7 +20,7 @@ import { version, versionDescription } from './version';
 import { uptime, uptimeDescription } from './uptime';
 // import { image, imageDescription, imageFlags } from './image';
 // import { ping, pingDescription } from './ping';
-import { song } from './song';
+import { song, songDescription } from './song';
 
 export type CommandFunc<C, R = any> = (commandParseResult: C, message: Message) => Promise<R>;
 
@@ -219,7 +219,7 @@ export const commandList: [string, CommandInfo][] = [
         {
             run: song,
             flags: {},
-            description: '',
+            description: songDescription,
             contents: [{ optional: false, name: 'song_url' }],
         },
     ],

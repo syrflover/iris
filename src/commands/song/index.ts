@@ -1,3 +1,3 @@
 export { song } from './song';
 
-export { description } from './description';
+export { description as songDescription } from './description';
