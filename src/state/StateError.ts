@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import type { Message } from 'discord.js';
 
 export class StateError extends Error {
     constructor(errorMessage: string | undefined, dm: Message) {

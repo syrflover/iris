@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import type { Message } from 'discord.js';
 
 import { CommandFunc } from '../index';
 import { IBaseCommandParseResult } from '@syrflover/command-parser';

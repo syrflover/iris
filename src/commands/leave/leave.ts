@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import type { Message } from 'discord.js';
 import { StateError } from '../../state';
 import { CommandFunc } from '..';
 import { ILeaveCommandParseResult } from './flags';

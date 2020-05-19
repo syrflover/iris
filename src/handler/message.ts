@@ -1,6 +1,6 @@
 import * as F from 'nodekell';
 
-import { Message } from 'discord.js';
+import type { Message } from 'discord.js';
 import { commandParser } from '@syrflover/command-parser';
 
 import { StateType, StateError } from '../state';
