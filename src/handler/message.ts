@@ -17,7 +17,9 @@ export const send = async (message: Message, str: string, option?: any) => {
     return F.forEach((e) => message.channel.send(e, option), r);
 };
 
-export const success = ([_, message]: StateType<any, Message>) => message.react(emoji.success);
+export const success = ([_, message]: StateType<any, Message>) => {
+    return message.react(emoji.success);
+};
 
 export const checkPrefix = F.curry(
     (prefixes: string[], state: StateType<boolean, Message>): Promise<StateType<string, Message>> =>
@@ -97,7 +99,9 @@ export const runCommand = (
         const [run, message, _] = state;
 
         run(message)
-            .then(() => resolve([true, message, _]))
+            .then(() => {
+                resolve([true, message, _]);
+            })
             .catch((error) => reject(new StateError(error.message, message)));
     });
 

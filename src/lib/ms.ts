@@ -5,7 +5,12 @@ export const MINUTE = 60000;
 export const HOUR = 3600000;
 export const DAY = 86400000;
 
-export const ms = (milliseconds: number, { long }: { long: boolean } = { long: true }) => {
+export const ms = (
+    milliseconds: number,
+    { long }: { long: boolean } = {
+        long: true,
+    },
+) => {
     let mt = milliseconds;
     let result = '';
 
@@ -42,5 +47,7 @@ export const ms = (milliseconds: number, { long }: { long: boolean } = { long: t
     }
 
     //     return `${result.trim()} ${mt > 0 ? `${mt} millisecond${mt > 1 ? 's' : ''}` : ''}`.trim();
+    // return result.trim();
+
     return result.trim();
 };
