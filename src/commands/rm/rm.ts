@@ -1,5 +1,5 @@
 import * as F from 'nodekell';
-import type { Message } from 'discord.js';
+import type { Message, TextChannel } from 'discord.js';
 
 import { CommandFunc } from '../index';
 import { StateError } from '../../state';
@@ -13,7 +13,7 @@ const removeMessages = F.curry(async (message: Message, removeAmount: number) =>
         })
         .then((msgs) => msgs.filter((msg) => msg.id !== message.id));
 
-    await message.channel.bulkDelete(messages, true);
+    await (message.channel as TextChannel).bulkDelete(messages, true);
 });
 
 export const rm: CommandFunc<IBaseCommandParseResult> = (
