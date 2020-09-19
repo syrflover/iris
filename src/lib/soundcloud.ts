@@ -1,4 +1,4 @@
-import type SC from 'soundcloud.ts';
+import SC, { SoundcloudTrackV2 } from 'soundcloud.ts';
 import type { IAsyncIterator_ } from '@syrflover/iterator';
 
 import { Readable } from 'stream';
@@ -152,7 +152,7 @@ export interface SCTrack {
 
 export const trackSC = curry((sc: SC, scURL: string) => sc.tracks.getV2(scURL));
 
-export const streamHeaderURLSC = curry(async (sc: SC, scTrack: SCTrack) => {
+export const streamHeaderURLSC = curry(async (sc: SC, scTrack: SoundcloudTrackV2) => {
     const { url: streamURL } = (await scTrack.media.transcodings
         .iter()
         .find((transcoding) => transcoding.format.protocol === 'hls'))!;
