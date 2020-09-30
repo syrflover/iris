@@ -15,6 +15,9 @@ export interface IEnv {
     SSH_PORT: string;
     SSH_KEY_PATH: string;
     SOUNDCLOUD_CLIENT_ID: string;
+    EC2_INSTANCE_ID: string;
+    AWS_ACCESS_KEY_ID: string;
+    AWS_SECRET_ACCESS_KEY: string;
 }
 
 const getEnv = () => {

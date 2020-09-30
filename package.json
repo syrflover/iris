@@ -38,6 +38,7 @@
         "@syrflover/command-parser": "0.0.3",
         "@syrflover/iterator": "^0.4.1",
         "@syrflover/simple-store": "^0.0.10",
+        "aws-sdk": "^2.761.0",
         "axios": "^0.19.2",
         "discord.js": "^12.3.1",
         "dotenv": "^8.2.0",

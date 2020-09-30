@@ -21,6 +21,8 @@ import { uptime, uptimeDescription } from './uptime';
 // import { image, imageDescription, imageFlags } from './image';
 // import { ping, pingDescription } from './ping';
 import { song, songDescription } from './song';
+import { ec2, ec2Description } from './ec2';
+import { pritunl, pritunlDescription } from './pritunl';
 
 export type CommandFunc<C, R = any> = (commandParseResult: C, message: Message) => Promise<R>;
 
@@ -221,6 +223,24 @@ export const commandList: [string, CommandInfo][] = [
             flags: {},
             description: songDescription,
             contents: [{ optional: false, name: 'song_url' }],
+        },
+    ],
+    [
+        'ec2',
+        {
+            run: ec2,
+            flags: {},
+            description: ec2Description,
+            contents: [{ optional: true, name: 'start or stop' }],
+        },
+    ],
+    [
+        'pritunl',
+        {
+            run: pritunl,
+            flags: {},
+            description: pritunlDescription,
+            contents: [{ optional: false, name: 'pritunl-client command' }],
         },
     ],
 ];
