@@ -46,7 +46,7 @@ export const ignoreBot = (state: StateType<string, Message>): Promise<StateType<
             return;
         }
         if (message.author.bot) {
-            reject(new StateError('오빠가 너 같은 애랑 놀지 말랬어요', message));
+            reject(new StateError('Ignore other bot messages', message));
             return;
         }
         resolve(state);
@@ -111,7 +111,7 @@ export const catcher = async (error: any) => {
         if (error.message === '해당 명령어를 찾을 수 없어요') {
             return;
         }
-        if (error.message === 'self') {
+        if (error.message === 'self' || error.message === 'Ignore other bot messages') {
             return;
         }
         if (error.message === 'Ignore regexp test') {
