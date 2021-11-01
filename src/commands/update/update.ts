@@ -27,7 +27,8 @@ export const update: CommandFunc<IBaseCommandParseResult> = (
 
             await message.channel.send(`업데이트 받는 데 ${gitPullTime / 1000}초 만큼 걸렸어요`);
 
-            const pm = (await shouldUseYarn()) ? 'yarn' : 'npm';
+            // const pm = (await shouldUseYarn()) ? 'yarn' : 'npm';
+            const pm = 'npm';
 
             const { time: installTime } = await spawnp(pm, ['install']);
 
