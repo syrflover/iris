@@ -133,3 +133,6 @@ id_rsa
 id_rsa.pub
 
 .env.json
+
+chamber/
+chamber_messages.json

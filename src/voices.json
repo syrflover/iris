@@ -1,6 +1,37 @@
 [
     {
         "name": "yuna",
+        "description": "korean",
+        "type": "siri"
+    },
+    {
+        "name": "samantha",
+        "description": "english/us",
+        "type": "siri"
+    },
+    {
+        "name": "daniel",
+        "description": "english/uk",
+        "type": "siri"
+    },
+    {
+        "name": "anna",
+        "description": "german",
+        "type": "siri"
+    },
+    {
+        "name": "milena",
+        "description": "russian",
+        "type": "siri"
+    },
+    {
+        "name": "fiona",
+        "description": "english/scotland",
+        "type": "siri"
+    },
+    {
+        "name": "kyoko",
+        "description": "japanese",
         "type": "siri"
     },
     {
