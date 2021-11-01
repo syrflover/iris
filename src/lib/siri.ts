@@ -27,7 +27,8 @@ export const siri = (content: string, name: string): Promise<string> => {
         const sayFile = `${paths.cache}/${hashed}.aiff`;
 
         if (await exists(sayFile)) {
-            return resolve(sayFile);
+            resolve(sayFile);
+            return;
         }
 
         let say;
@@ -38,7 +39,7 @@ export const siri = (content: string, name: string): Promise<string> => {
             say = spawn('say', [`"${content}"`, '-v', name, '-o', sayFile]);
         }
 
-        let audioBuf;
+        // let audioBuf;
 
         say.stdout.on('end', () => {
             resolve(sayFile);
