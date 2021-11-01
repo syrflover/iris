@@ -26,7 +26,7 @@ export const siri = (content: string, name: string): Promise<string> => {
         const hashed = hash('md5', name, content);
         const sayFile = `${paths.cache}/${hashed}.aiff`;
 
-        if (await exists(content)) {
+        if (await exists(sayFile)) {
             return resolve(sayFile);
         }
 
