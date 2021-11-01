@@ -19,7 +19,7 @@ export const ping: CommandFunc<IBaseCommandParseResult> = (
 
             await message.channel.send(result);
             resolve();
-        } catch (error) {
+        } catch (error: any) {
             reject(new StateError(error.message, message));
         }
     });

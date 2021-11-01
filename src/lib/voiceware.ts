@@ -41,7 +41,7 @@ export const voiceware = (
                 })
                 .then((res) => res.data);
             resolve(`${voicewareUrl}${voiceUrl}_${effect ? 'eff' : ''}bgm.wav`);
-        } catch (error) {
+        } catch (error: any) {
             reject(error);
         }
     });

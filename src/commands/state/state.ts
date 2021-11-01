@@ -55,7 +55,7 @@ export const state: CommandFunc<IStateCommandParseResult> = (
             });
             await stateStore.write({ name: content, type: activityType || 'PLAYING' });
             resolve();
-        } catch (error) {
+        } catch (error: any) {
             reject(new StateError(error.message, message));
         }
     });

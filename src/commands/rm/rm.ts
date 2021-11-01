@@ -40,7 +40,7 @@ export const rm: CommandFunc<IBaseCommandParseResult> = (
             }
 
             resolve();
-        } catch (error) {
+        } catch (error: any) {
             reject(new StateError(error.message, message));
         }
     });

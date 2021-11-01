@@ -9,6 +9,8 @@ export const description = async () => {
 
 # voice list
 
-${voices.map((e, i) => `- ${e.name}`).join('\n')}`.trim();
+${voices
+    .map((e, i) => `- ${e.name} ${e.description ? `#${e.description}` : ''}`)
+    .join('\n')}`.trim();
 };
 // export const description = 'tts in voice channel';

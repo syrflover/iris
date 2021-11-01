@@ -42,8 +42,8 @@ export const sh: CommandFunc<IBaseCommandParseResult> = (
 
             await message.channel.send(`${F.sample(clockEmojies)} ${ms(time)}`);
 
-            resolve();
-        } catch (error) {
+            resolve(null);
+        } catch (error: any) {
             reject(new StateError(error.message, message));
         }
     });

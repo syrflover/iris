@@ -59,7 +59,7 @@ export const ec2_: CommandFunc<IBaseCommandParseResult, string> = (
 
                         await message.channel.send(`Started EC2 Instance.`);
 
-                        resolve();
+                        resolve('');
                     }
                     break;
                 case 'stop':
@@ -90,7 +90,7 @@ export const ec2_: CommandFunc<IBaseCommandParseResult, string> = (
                         }
                         await message.channel.send('Stopped EC2 Instance.');
 
-                        resolve();
+                        resolve('');
                     }
                     break;
                 case 'state': {
@@ -100,13 +100,13 @@ export const ec2_: CommandFunc<IBaseCommandParseResult, string> = (
                         })
                         .promise();
 
-                    await message.channel.send(b.Reservations![0].Instances![0].State!.Name);
+                    await message.channel.send(b.Reservations![0].Instances![0].State!.Name!);
 
-                    resolve();
+                    resolve('');
                     break;
                 }
             }
-        } catch (error) {
+        } catch (error: any) {
             reject(new StateError(error.message, message));
         }
     });

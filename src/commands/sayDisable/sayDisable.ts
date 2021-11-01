@@ -18,7 +18,7 @@ export const sayDisable: CommandFunc<IBaseCommandParseResult> = (
             await sayStore.write({ ...sayData });
 
             resolve();
-        } catch (error) {
+        } catch (error: any) {
             reject(new StateError(error.message, message));
         }
     });

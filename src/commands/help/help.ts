@@ -38,7 +38,7 @@ ${typeof description === 'function' ? await description() : description}
             try {
                 await message.channel.send(a);
                 resolve();
-            } catch (error) {
+            } catch (error: any) {
                 reject(new StateError(error.message, message));
             }
             return;
@@ -54,7 +54,7 @@ ${typeof description === 'function' ? await description() : description}
                 `\`\`\`markdown\n${b}\n\n명령어에 대한 도움말을 보고 싶으시면 help <command> 를 입력하여 주세요\`\`\``,
             );
             resolve();
-        } catch (error) {
+        } catch (error: any) {
             reject(new StateError(error.message, message));
         }
     });

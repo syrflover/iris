@@ -46,7 +46,7 @@ export const random: CommandFunc<IBaseCommandParseResult> = (
 
             await message.channel.send(r);
             resolve();
-        } catch (error) {
+        } catch (error: any) {
             reject(new StateError(error.message, message));
         }
     });

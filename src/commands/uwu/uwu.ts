@@ -14,7 +14,7 @@ export const uwu: CommandFunc<IBaseCommandParseResult, string> = (
 
             await message.channel.send(result);
             resolve(result);
-        } catch (error) {
+        } catch (error: any) {
             reject(new StateError(error.message, message));
         }
     });

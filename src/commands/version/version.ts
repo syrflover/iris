@@ -19,8 +19,8 @@ export const version: CommandFunc<IBaseCommandParseResult> = (
             const date = DateTime.fromJSDate(new Date(dt)).toFormat('yyyy/LL/dd HH:mm:ss ZZZ');
 
             await message.channel.send(`${id} | ${date}`);
-            resolve();
-        } catch (error) {
+            resolve(null);
+        } catch (error: any) {
             reject(new StateError(error.message, message));
         }
     });

@@ -83,7 +83,7 @@ export const song: CommandFunc<IBaseCommandParseResult, void> = (
 
                     const succ = () => success([, awaitedMessage, '']);
 
-                    if (message.member?.voice.channelID === connenction?.voice.channelID) {
+                    if (message.member?.voice.channelID === connenction?.voice?.channelID) {
                         switch (awaitedMessage.content) {
                             case 'track':
                                 const current_duration = ms(Date.now() - startDate, {
@@ -127,7 +127,7 @@ export const song: CommandFunc<IBaseCommandParseResult, void> = (
                     return { stop: false };
                 },
             );
-        } catch (error) {
+        } catch (error: any) {
             reject(new StateError(error.message, message));
         }
     });

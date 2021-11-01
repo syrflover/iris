@@ -23,7 +23,7 @@ export const shutdown: CommandFunc<IShutdownCommandParseResult> = (
         }
 
         if (reboot) {
-            resolve();
+            resolve(null);
 
             await F.sleep(1000);
 
@@ -31,14 +31,14 @@ export const shutdown: CommandFunc<IShutdownCommandParseResult> = (
         }
 
         if (halt) {
-            resolve();
+            resolve(null);
 
             await F.sleep(1000);
 
             try {
                 await spawnp('forever', ['stop', 'iris']);
                 return;
-            } catch (error) {
+            } catch (error: any) {
                 reject(new StateError(error.message, message));
             }
         }

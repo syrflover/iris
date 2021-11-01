@@ -1,3 +1,5 @@
+import * as fs from 'fs/promises';
+
 import * as F from 'nodekell';
 
 import * as Discord from 'discord.js';
@@ -18,6 +20,17 @@ import { stateStore } from './store/stateStore';
 import { logger } from './logger';
 import { messageIterator } from './lib/messageIterator';
 import { iterator } from '@syrflover/iterator';
+
+const INITIAL_DATE = new Date();
+const year = INITIAL_DATE.getFullYear();
+const month = INITIAL_DATE.getMonth();
+const date = INITIAL_DATE.getDate();
+const hours = INITIAL_DATE.getHours();
+const minutes = INITIAL_DATE.getMinutes();
+const seconds = INITIAL_DATE.getSeconds();
+const milliseconds = INITIAL_DATE.getMilliseconds();
+
+const FILENAME = `${year}_${month}_${date}_${hours}_${minutes}_${seconds}_${milliseconds}.json`;
 
 export const client = new Discord.Client();
 
@@ -41,6 +54,10 @@ client.once('ready', async () => {
         },
     });
 
+    await fs.mkdir('./chamber', { recursive: true });
+
+    await fs.writeFile(`./chamber/${FILENAME}`, Buffer.from(JSON.stringify([])));
+
     /* const channel = client.channels.get(env.PING_NOTIFICATION_CHANNEL_ID) as Discord.TextChannel;
 
     // healthcheck
@@ -58,8 +75,13 @@ client.once('ready', async () => {
     }); */
 });
 
-client.on('message', (message) => {
-    alwaysSay(prefixes, message).catch(catcher);
+client.on('message', async (message) => {
+    // Chamber
+    let inspect_channel_id = '858730775360962580';
+
+    if (message.channel.id != inspect_channel_id) {
+        alwaysSay(prefixes, message).catch(catcher);
+    }
 
     F.run(
         message,
@@ -71,4 +93,34 @@ client.on('message', (message) => {
         runCommand,
         success,
     ).catch(catcher);
+
+    if (message.channel.id == inspect_channel_id) {
+        let prev: ReturnType<typeof message.toJSON>[] = await fs
+            .readFile(`./chamber/${FILENAME}`)
+            .then((r) => JSON.parse(r.toString()));
+
+        prev.push(messageIntoJson(message));
+
+        fs.writeFile(`./chamber/${FILENAME}`, Buffer.from(JSON.stringify(prev, null, 4)));
+    }
 });
+
+const messageIntoJson = (message: Discord.Message) => {
+    const content = message.content;
+    const cleanContent = message.content;
+    const authorId = message.author.id;
+    const authorUsername = message.author.username;
+    const embeds = message.embeds.map((embed) => embed.toJSON());
+
+    return {
+        content,
+        cleanContent,
+        author: {
+            id: authorId,
+            username: authorUsername,
+        },
+        embeds,
+        createdAt: message.createdAt,
+        type: message.type,
+    };
+};

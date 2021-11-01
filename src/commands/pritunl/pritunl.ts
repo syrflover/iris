@@ -19,8 +19,8 @@ export const pritunl: CommandFunc<IBaseCommandParseResult, string> = (
 
             await message.channel.send(stdout);
 
-            resolve();
-        } catch (error) {
+            resolve('');
+        } catch (error: any) {
             reject(new StateError(error.message, message));
         }
     });

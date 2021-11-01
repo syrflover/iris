@@ -15,7 +15,7 @@ export const host: CommandFunc<IBaseCommandParseResult, string> = (
             const hostname = os.hostname();
             await message.channel.send(hostname);
             resolve(hostname);
-        } catch (error) {
+        } catch (error: any) {
             reject(new StateError(error.message, message));
         }
     });

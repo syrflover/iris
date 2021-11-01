@@ -22,7 +22,7 @@ export const leave: CommandFunc<ILeaveCommandParseResult> = (
             try {
                 voiceChannel.leave();
                 resolve();
-            } catch (error) {
+            } catch (error: any) {
                 reject(new StateError(error.message, message));
             }
             return;

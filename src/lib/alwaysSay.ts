@@ -40,7 +40,7 @@ export const alwaysSay = (prefixes: string[], message: Message): Promise<void> =
 
                 await say(sayCommandParseResult, message);
                 resolve();
-            } catch (error) {
+            } catch (error: any) {
                 reject(error);
             }
         }

@@ -38,8 +38,8 @@ export const node: CommandFunc<IBaseCommandParseResult> = (
 
                 await message.channel.send(codeBox);
 
-                resolve();
-            } catch (error) {
+                resolve(null);
+            } catch (error: any) {
                 reject(new StateError(error.message, message));
             }
         });

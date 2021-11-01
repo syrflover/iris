@@ -47,7 +47,7 @@ export const update: CommandFunc<IBaseCommandParseResult> = (
             await message.channel.send('재시작 할 거예요');
 
             process.exit(0);
-        } catch (error) {
+        } catch (error: any) {
             reject(new StateError(error.message, message));
         }
     });

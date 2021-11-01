@@ -13,7 +13,7 @@ export const uptime: CommandFunc<IBaseCommandParseResult> = (
         try {
             await message.channel.send(ms(process.uptime() * 1000));
             resolve();
-        } catch (error) {
+        } catch (error: any) {
             reject(new StateError(error.message, message));
         }
     });

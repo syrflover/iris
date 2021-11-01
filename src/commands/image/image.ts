@@ -31,7 +31,7 @@ export const image: CommandFunc<IImageCommandParseResult> = (
 
             await message.channel.send(img_url);
             resolve();
-        } catch (error) {
+        } catch (error: any) {
             reject(new StateError(error.message, message));
         }
     });
