@@ -7,10 +7,10 @@ import { logger } from '../logger';
 
 import { paths } from './resolvePath';
 
-const hash = (algorithm: string, st: string) => {
+const hash = (algorithm: string, ...xs: string[]) => {
     const hash = createHash(algorithm);
 
-    hash.update(st);
+    xs.forEach((x) => hash.update(x));
 
     return hash.digest('hex');
 };
@@ -23,7 +23,7 @@ const exists = (path: string) =>
 
 export const siri = (content: string, name: string): Promise<string> => {
     return new Promise(async (resolve, reject) => {
-        const hashed = hash('md5', content);
+        const hashed = hash('md5', name, content);
         const sayFile = `${paths.cache}/${hashed}.aiff`;
 
         if (await exists(content)) {
