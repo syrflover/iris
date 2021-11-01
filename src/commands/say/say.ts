@@ -10,7 +10,8 @@ import { replacer } from '../../lib/replacer';
 import { ISayCommandParseResult } from './flags';
 
 const replaceRegExp: [RegExp, string][] = [
-    [/-|"|\\|'|\||`|\$/g, ''], // bug fix
+    // [/-|"|\\|'|\||`|\$/g, ''], // bug fix
+
     [/~/g, ''], // bug fix
     [/<@[0-9]+>/g, ''], // user id
     [/<#[0-9]+>/g, ''], // channel id
@@ -20,8 +21,6 @@ const replaceRegExp: [RegExp, string][] = [
 const ignoreRegExp: RegExp[] = [
     /(http|https|ftp|telnet|news|mms):\/\/[^\"'\s()]+/i, // url
     /```.+```/is, // code block
-    /g[?].*/, // shigure bot prefix
-    /^shigure/, // shigure bot command
 ];
 
 export const say: CommandFunc<ISayCommandParseResult> = (
